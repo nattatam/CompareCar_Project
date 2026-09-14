@@ -1,10 +1,10 @@
-import Script from "next/script";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
-const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID;
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID
 
-export default function Analytics() {
+export default function AnalyticsGC() {
   return (
     <>
       {GA_MEASUREMENT_ID ? <GoogleAnalytics gaId={GA_MEASUREMENT_ID} /> : null}
@@ -19,5 +19,5 @@ export default function Analytics() {
         />
       ) : null}
     </>
-  );
+  )
 }
