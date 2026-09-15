@@ -1,67 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import BackButton from "@/components/BackButton";
 
 export const metadata: Metadata = {
   title: "Disclaimer — CompareCar",
   description:
-    "ขอบเขตการรับผิดและความถูกต้องของข้อมูลที่แสดงบนเว็บไซต์ Compare Car",
+    "Scope of liability and information accuracy displayed on the CompareCar website.",
   alternates: {
     canonical: "/disclaimer",
   },
 };
 
-export default function DisclaimerPage() {
+export default async function DisclaimerPage() {
+  const t = await getTranslations("Disclaimer");
+  const tCommon = await getTranslations("Common");
+
   return (
-    <div lang="th" className="mx-auto w-full max-w-3xl px-4 py-8">
+    <div className="mx-auto w-full max-w-3xl px-4 py-8">
       <BackButton variant="ghost">
-        ← กลับไปหน้าหลัก
+        ← {tCommon("back")}
       </BackButton>
 
       <article className="mt-4 space-y-4 text-[15px] leading-relaxed text-foreground/90">
         <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-          ข้อจำกัดความรับผิดชอบและความถูกต้องของข้อมูล
+          {t("title")}
         </h1>
 
-        <p>
-          ข้อมูลที่แสดงบนเว็บไซต์ Compare Car จัดทำขึ้นเพื่อวัตถุประสงค์ในการให้ข้อมูลและประกอบการเปรียบเทียบรถยนต์เท่านั้น
-          โดยข้อมูลดังกล่าวอาจรวบรวมจากแหล่งข้อมูลสาธารณะ ผู้ผลิต ผู้จำหน่าย สื่อยานยนต์
-          และแหล่งข้อมูลอื่น ๆ ที่เกี่ยวข้อง
-        </p>
+        <p>{t("content1")}</p>
 
-        <p>
-          ข้อมูลเกี่ยวกับ <strong>รายละเอียดรถยนต์ รุ่นย่อย อุปกรณ์ติดตั้ง ข้อมูลจำเพาะ
-          (Specifications) สมรรถนะ ราคา โปรโมชั่น และข้อมูลอื่น ๆ</strong>{" "}
-          อาจมีการเปลี่ยนแปลง แตกต่างกันตามปีรุ่น ประเทศ รุ่นย่อย วันที่เผยแพร่
-          หรือเงื่อนไขของผู้ผลิตและผู้จำหน่าย และอาจไม่ตรงกับข้อมูลอย่างเป็นทางการหรือข้อมูลล่าสุดจากผู้ผลิตหรือผู้จำหน่าย
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: t("content2") }} />
 
-        <p>
-          <strong>รูปภาพที่แสดงบนเว็บไซต์มีวัตถุประสงค์เพื่อใช้ประกอบการนำเสนอและเปรียบเทียบเท่านั้น</strong>{" "}
-          รูปภาพบางรายการอาจเป็นภาพตัวแทนของรุ่นหรือรุ่นย่อย และอาจแตกต่างจากรถยนต์จริง
-          รวมถึงสี อุปกรณ์ ล้อ การตกแต่ง หรือรายละเอียดภายนอกของรถที่จำหน่ายในแต่ละตลาด
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: t("content3") }} />
 
-        <p>
-          ผู้ใช้งานควรตรวจสอบ <strong>ข้อมูลจำเพาะ ราคา อุปกรณ์ โปรโมชั่น และเงื่อนไขการจำหน่ายล่าสุดจากผู้ผลิตหรือผู้จำหน่ายที่ได้รับอนุญาตโดยตรง</strong>{" "}
-          ก่อนตัดสินใจซื้อหรือทำธุรกรรมใด ๆ
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: t("content4") }} />
 
-        <p>
-          Compare Car พยายามตรวจสอบและปรับปรุงข้อมูลให้มีความถูกต้องและเป็นปัจจุบันอยู่เสมอ
-          อย่างไรก็ตาม ไม่รับประกันว่าข้อมูลทั้งหมดบนเว็บไซต์จะถูกต้อง ครบถ้วน หรือเป็นปัจจุบันตลอดเวลา
-          และไม่รับผิดชอบต่อความเสียหายหรือความสูญเสียใด ๆ ที่เกิดขึ้นจากการพึ่งพาข้อมูลดังกล่าว
-        </p>
+        <p>{t("content5")}</p>
 
-        <p>
-          การแสดงชื่อ เครื่องหมายการค้า โลโก้ รูปภาพ หรือข้อมูลของผู้ผลิตและแบรนด์รถยนต์บนเว็บไซต์{" "}
-          <strong>ไม่ได้หมายความว่า Compare Car มีความเกี่ยวข้อง เป็นตัวแทน ได้รับการรับรอง หรือได้รับการสนับสนุนจากผู้ผลิตหรือเจ้าของเครื่องหมายการค้านั้น</strong>{" "}
-          เว้นแต่จะมีการระบุไว้เป็นอย่างอื่นโดยชัดแจ้ง
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: t("content6") }} />
       </article>
 
       <div className="mt-8 border-t border-border pt-4 text-xs text-muted-foreground">
-        ดูข้อมูลเพิ่มเติมเกี่ยวกับที่มาของรูปภาพที่{" "}
+        {t("moreInfo")}{" "}
         <Link href="/credits" className="font-medium text-primary hover:underline">
           Image credits
         </Link>

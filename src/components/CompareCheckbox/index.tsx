@@ -1,4 +1,5 @@
 import type { MouseEvent } from 'react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Check } from 'lucide-react'
 
@@ -8,6 +9,7 @@ interface CompareCheckboxProps {
 }
 
 export function CompareCheckbox({ selected, onToggle }: CompareCheckboxProps) {
+  const t = useTranslations('CompareCheckbox')
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     onToggle()
@@ -22,7 +24,7 @@ export function CompareCheckbox({ selected, onToggle }: CompareCheckboxProps) {
       className="mt-auto w-full cursor-pointer"
     >
       {selected && <Check className="size-4" />}
-      {selected ? 'Selected for compare' : 'Add to compare'}
+      {selected ? t('selected') : t('add')}
     </Button>
   )
 }

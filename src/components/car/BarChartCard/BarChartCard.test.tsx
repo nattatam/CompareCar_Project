@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import type { Car } from '@/lib/types'
+import { renderWithIntl } from '@/test/renderWithIntl'
 import { BarChartCard } from '.'
 
 vi.mock('recharts', async () => {
@@ -38,7 +39,7 @@ describe('BarChartCard', () => {
         groundClearance: 140,
       },
     } as unknown as Car
-    render(<BarChartCard car={car} />)
+    renderWithIntl(<BarChartCard car={car} />)
     expect(screen.getByTestId('chart-container')).toBeInTheDocument()
   })
 })

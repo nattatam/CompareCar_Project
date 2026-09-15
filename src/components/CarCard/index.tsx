@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Car } from '@/lib/types'
+import { useTranslations } from 'next-intl'
 import { formatPrice } from '@/lib/types'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
@@ -19,6 +20,8 @@ interface CarCardProps {
 }
 
 export default function CarCard({ car, selected, onToggle }: CarCardProps) {
+  const t = useTranslations('CarCard')
+
   return (
     <Card
       className={cn(
@@ -68,7 +71,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <Zap className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">Power</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('power')}</p>
               <p className="text-xs font-semibold text-foreground tabular-nums">
                 {'horsepower' in car.specs ? car.specs.horsepower : Math.round(car.specs.powerKw * 1.341)} hp
               </p>
@@ -77,7 +80,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <Cog className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">Torque</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('torque')}</p>
               <p className="text-xs font-semibold text-foreground tabular-nums">{car.specs.torque} Nm</p>
             </div>
           </div>
@@ -86,7 +89,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <Timer className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">0-100 km/h</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('acceleration')}</p>
               <p className="text-xs font-semibold text-foreground tabular-nums">
                 {car.specs.acceleration.zeroToHundred != null ? `${car.specs.acceleration.zeroToHundred}s` : 'N/A'}
               </p>
@@ -95,7 +98,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <LifeBuoy className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">Drive</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('drive')}</p>
               <p className="text-xs font-semibold text-foreground">{car.specs.drivetrain}</p>
             </div>
           </div>
@@ -104,7 +107,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             {'range' in car.specs ? <Route className="size-3.5 shrink-0 text-primary" /> : <Fuel className="size-3.5 shrink-0 text-primary" />}
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">{'range' in car.specs ? 'Range' : 'Economy'}</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{'range' in car.specs ? t('range') : t('economy')}</p>
               {'range' in car.specs ? (
                 car.specs.range.nedc != null && car.specs.range.wltp != null ? (
                   <>
@@ -128,7 +131,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <Users className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">Seats</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('seats')}</p>
               <p className="text-xs font-semibold text-foreground">{car.specs.seats}</p>
             </div>
           </div>
@@ -141,7 +144,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
               <Settings className="size-3.5 shrink-0 text-primary" />
             )}
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">{'battery' in car.specs ? 'Battery' : 'Gearbox'}</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{'battery' in car.specs ? t('battery') : t('gearbox')}</p>
               <p className="text-xs font-semibold text-foreground truncate">
                 {'battery' in car.specs ? `${car.specs.battery.capacity} kWh` : 'transmission' in car.specs ? car.specs.transmission : 'N/A'}
               </p>
@@ -150,7 +153,7 @@ export default function CarCard({ car, selected, onToggle }: CarCardProps) {
           <div className="flex items-center gap-1.5 rounded-md bg-card p-1.5">
             <Gauge className="size-3.5 shrink-0 text-primary" />
             <div className="min-w-0">
-              <p className="text-[10px] leading-tight text-muted-foreground">Top Speed</p>
+              <p className="text-[10px] leading-tight text-muted-foreground">{t('topSpeed')}</p>
               <p className="text-xs font-semibold text-foreground tabular-nums">{car.specs.topSpeed ? `${car.specs.topSpeed} km/h` : 'N/A'}</p>
             </div>
           </div>

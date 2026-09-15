@@ -1,0 +1,149 @@
+{
+  "Common": {
+    "back": "Back to catalog",
+    "loading": "Loading...",
+    "na": "N/A",
+    "clear": "Clear",
+    "remove": "Remove",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page",
+    "of": "of",
+    "cars": "cars",
+    "car": "car"
+  },
+  "Nav": {
+    "catalog": "Catalog",
+    "compare": "Compare",
+    "disclaimer": "Disclaimer",
+    "imageCredits": "Image credits (Wikimedia Commons)"
+  },
+  "Catalog": {
+    "title": "Car Catalog",
+    "subtitle": "Browse cars, filter by powertrain, and select up to 5 to compare.",
+    "empty": "No cars match your filters."
+  },
+  "Filter": {
+    "search": "Search",
+    "searchPlaceholder": "Search by brand or model...",
+    "priceRange": "Price range (THB)",
+    "brand": "Brand",
+    "powertrainType": "Powertrain type",
+    "subtype": "Subtype",
+    "category": "Category"
+  },
+  "CompareBar": {
+    "selected": "{count, plural, one {{count} car selected} other {{count} cars selected}}",
+    "hint": "Select 2–5 cars to enable comparison.",
+    "compare": "Compare ({count})"
+  },
+  "CompareCheckbox": {
+    "selected": "Selected for compare",
+    "add": "Add to compare"
+  },
+  "Compare": {
+    "title": "Compare Cars",
+    "addCar": "+ Add car",
+    "closePicker": "Close picker",
+    "noCars": "No cars selected for comparison.",
+    "addCarsToCompare": "Add cars to compare",
+    "searchPlaceholder": "Search car name...",
+    "searchLabel": "Search cars to compare",
+    "allCompared": "All cars are being compared.",
+    "noMatch": "No cars match your search.",
+    "specification": "Specification",
+    "loading": "Loading comparison..."
+  },
+  "CompareSpec": {
+    "torque": "Torque",
+    "range": "Range",
+    "topSpeed": "Top Speed",
+    "acceleration": "0-100 km/h",
+    "seats": "Seats",
+    "weight": "Weight",
+    "drivetrain": "Drivetrain",
+    "groundClearance": "Ground Clearance",
+    "trunkCapacity": "Trunk Capacity"
+  },
+  "CarCard": {
+    "power": "Power",
+    "torque": "Torque",
+    "acceleration": "0-100 km/h",
+    "drive": "Drive",
+    "range": "Range",
+    "economy": "Economy",
+    "seats": "Seats",
+    "battery": "Battery",
+    "gearbox": "Gearbox",
+    "topSpeed": "Top Speed"
+  },
+  "CarSpec": {
+    "horsepower": "Horsepower",
+    "power": "Power",
+    "torque": "Torque",
+    "topSpeed": "Top Speed",
+    "acceleration": "0–100 km/h",
+    "fuelEconomy": "Fuel Economy",
+    "transmission": "Transmission",
+    "engine": "Engine",
+    "seats": "Seats",
+    "weight": "Weight",
+    "drivetrain": "Drivetrain",
+    "rangeWLTP": "Range (WLTP)",
+    "rangeNEDC": "Range (NEDC)",
+    "battery": "Battery",
+    "motor": "Motor"
+  },
+  "Detail": {
+    "backToCatalog": "Back to catalog",
+    "specifications": "Specifications",
+    "officialWebsite": "Official website",
+    "powertrain": "Powertrain",
+    "performanceVsCategory": "Performance vs category",
+    "radarDescription": "Radar of key performance metrics (normalized against the entire catalog).",
+    "specsVsAverage": "Specs vs {category} average"
+  },
+  "Powertrain": {
+    "ICE": "ICE (Internal Combustion Engine)",
+    "EV": "EV (Battery Electric)",
+    "MHEV": "HEV — Mild Hybrid",
+    "PHEV": "HEV — Plug-in Hybrid",
+    "REEV": "HEV — Range-Extended EV",
+    "HEV": "HEV — Conventional Hybrid"
+  },
+  "Features": {
+    "intelligentAssist": "Intelligent Assist",
+    "security": "Security"
+  },
+  "Credits": {
+    "title": "Image Credits",
+    "description": "Vehicle photos used on CompareCar are licensed under Creative Commons and come from Wikimedia Commons. Each image below links to its source and license. Images marked CC0 are in the public domain and do not require attribution.",
+    "image": "Image",
+    "usedBy": "Used by",
+    "photographer": "Photographer",
+    "license": "License",
+    "source": "Source",
+    "noAttribution": "No attribution required",
+    "viewSource": "View source",
+    "watchYouTube": "Watch on YouTube",
+    "noPhoto": "No photo yet",
+    "placeholder": "Placeholder"
+  },
+  "Disclaimer": {
+    "title": "Disclaimer and Information Accuracy",
+    "note": "Note:",
+    "noteText": "The information, specifications, prices, and images displayed on Compare Car are provided for comparison purposes only. Information may differ from official sources and may be subject to change. Please verify the latest information directly with the manufacturer or authorized dealer before making a purchase decision.",
+    "readMore": "Read more",
+    "content1": "The information presented on Compare Car is provided for informational and vehicle comparison purposes only. The information may be collected from publicly available sources, manufacturers, authorized dealers, automotive media, and other relevant sources.",
+    "content2": "Information regarding <strong>vehicle details, model variants, equipment, specifications, performance, pricing, promotions, and other related information</strong> may change and may vary depending on the model year, country or market, vehicle variant, publication date, or the terms and conditions of the manufacturer or dealer. Such information may not always reflect the official or most up-to-date information provided by the manufacturer or dealer.",
+    "content3": "<strong>Images displayed on Compare Car are provided for illustration and comparison purposes only.</strong> Some images may be representative of a particular vehicle model or variant and may differ from the actual vehicle available for sale. Differences may include, but are not limited to, exterior color, equipment, wheels, trim, styling, or other vehicle details depending on the market and specification.",
+    "content4": "Users should <strong>verify the latest specifications, pricing, equipment, promotions, availability, and sales terms directly with the manufacturer or an authorized dealer</strong> before making any purchase decision or entering into any transaction.",
+    "content5": "Compare Car makes reasonable efforts to review and maintain the accuracy and currency of the information presented on the website. However, we do not guarantee that all information is accurate, complete, reliable, or up to date at all times. Compare Car shall not be held responsible or liable for any loss, damage, or other consequences arising from or related to reliance on the information presented on this website.",
+    "content6": "The display of <strong>manufacturer names, trademarks, logos, images, or other brand-related information</strong> on Compare Car does not imply that Compare Car is affiliated with, an authorized representative of, endorsed by, sponsored by, or otherwise officially associated with any manufacturer, brand, or trademark owner, unless explicitly stated otherwise.",
+    "moreInfo": "For more information about image sources, see"
+  },
+  "Footer": {
+    "disclaimer": "CompareCar — independent car comparison platform. Data for reference only."
+  }
+}

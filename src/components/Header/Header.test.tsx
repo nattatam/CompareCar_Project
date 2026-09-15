@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithIntl } from '@/test/renderWithIntl'
 import Header from './'
 
 vi.mock('next/link', () => ({
@@ -17,19 +18,23 @@ vi.mock('next/image', () => ({
   ),
 }))
 
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ refresh: vi.fn() }),
+}))
+
 describe('Header', () => {
   it('renders the brand name', () => {
-    render(<Header />)
+    renderWithIntl(<Header />)
     expect(screen.getByText('CompareCar')).toBeInTheDocument()
   })
 
   it('renders the logo with alt text', () => {
-    render(<Header />)
+    renderWithIntl(<Header />)
     expect(screen.getByAltText('CompareCar logo')).toBeInTheDocument()
   })
 
   it('renders navigation links', () => {
-    render(<Header />)
+    renderWithIntl(<Header />)
     expect(screen.getByRole('link', { name: 'Catalog' })).toHaveAttribute('href', '/')
     expect(screen.getByRole('link', { name: 'Compare' })).toHaveAttribute('href', '/compare')
   })

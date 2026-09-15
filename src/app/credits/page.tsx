@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import { ArrowLeft } from 'lucide-react'
 import { cars } from '@/data/cars'
 import { IMAGE_CREDITS, getPublicDomainSource } from '@/data/credits'
@@ -22,7 +23,10 @@ function imageExists(imagePath: string): boolean {
   return fs.existsSync(path.join(process.cwd(), 'public', name))
 }
 
-export default function CreditsPage() {
+export default async function CreditsPage() {
+  const t = await getTranslations('Credits')
+  const tCommon = await getTranslations('Common')
+
   const images = Array.from(new Set(cars.map((c) => c.image))).sort()
 
   const rows = images.map((image) => {
@@ -37,14 +41,13 @@ export default function CreditsPage() {
     <div className="mx-auto w-full max-w-6xl px-4 py-8">
       <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
         <ArrowLeft className="size-4" />
-        Back to catalog
+        {tCommon('back')}
       </Link>
 
       <div className="mt-4 mb-6">
-        <h1 className="text-3xl font-bold text-foreground">Image Credits</h1>
+        <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
         <p className="mt-1 max-w-2xl text-muted-foreground">
-          Vehicle photos used on CompareCar are licensed under Creative Commons and come from Wikimedia Commons. Each image below links to its source
-          and license. Images marked CC0 are in the public domain and do not require attribution.
+          {t('description')}
         </p>
       </div>
 
@@ -52,11 +55,11 @@ export default function CreditsPage() {
         <Table>
           <TableHeader>
             <TableRow className="bg-muted">
-              <TableHead className="p-4 font-medium text-muted-foreground">Image</TableHead>
-              <TableHead className="p-4 font-medium text-muted-foreground">Used by</TableHead>
-              <TableHead className="p-4 font-medium text-muted-foreground">Photographer</TableHead>
-              <TableHead className="p-4 font-medium text-muted-foreground">License</TableHead>
-              <TableHead className="p-4 font-medium text-muted-foreground">Source</TableHead>
+              <TableHead className="p-4 font-medium text-muted-foreground">{t('image')}</TableHead>
+              <TableHead className="p-4 font-medium text-muted-foreground">{t('usedBy')}</TableHead>
+              <TableHead className="p-4 font-medium text-muted-foreground">{t('photographer')}</TableHead>
+              <TableHead className="p-4 font-medium text-muted-foreground">{t('license')}</TableHead>
+              <TableHead className="p-4 font-medium text-muted-foreground">{t('source')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -80,7 +83,7 @@ export default function CreditsPage() {
                   </ul>
                 </TableCell>
                 <TableCell className="p-4 align-top text-sm text-foreground/80">
-                  {credit?.author ?? <span className="text-muted-foreground">{exists ? 'No attribution required' : '—'}</span>}
+                  {credit?.author ?? <span className="text-muted-foreground">{exists ? t('noAttribution') : '—'}</span>}
                 </TableCell>
                 <TableCell className="p-4 align-top text-sm">
                   {credit ? (
@@ -103,7 +106,7 @@ export default function CreditsPage() {
                           CC0
                         </a>
                       ) : (
-                        'Placeholder'
+                        t('placeholder')
                       )}
                     </span>
                   )}
@@ -112,7 +115,7 @@ export default function CreditsPage() {
                   {credit ? (
                     <div className="space-y-1">
                       <a href={credit.sourceUrl} target="_blank" rel="noopener noreferrer" className="block font-medium text-primary hover:underline">
-                        View source
+                        {t('viewSource')}
                       </a>
                       {credit.videoUrl && (
                         <a
@@ -121,16 +124,16 @@ export default function CreditsPage() {
                           rel="noopener noreferrer"
                           className="block font-medium text-primary hover:underline"
                         >
-                          Watch on YouTube
+                          {t('watchYouTube')}
                         </a>
                       )}
                     </div>
                   ) : pdSource ? (
                     <a href={pdSource} target="_blank" rel="noopener noreferrer" className="font-medium text-primary hover:underline">
-                      View source
+                      {t('viewSource')}
                     </a>
                   ) : (
-                    <span className="text-muted-foreground">{exists ? '—' : 'No photo yet'}</span>
+                    <span className="text-muted-foreground">{exists ? '—' : t('noPhoto')}</span>
                   )}
                 </TableCell>
               </TableRow>

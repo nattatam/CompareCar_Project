@@ -2,6 +2,7 @@
 
 import type { PowertrainType, Category } from '@/lib/types'
 import type { Brand, Subtype } from '@/constants/constants'
+import { useTranslations } from 'next-intl'
 import { BRANDS, CATEGORIES, DEFAULT_PRICE_RANGE, POWERTRAIN_TYPES, SUBTYPES } from '@/constants/constants'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -43,20 +44,23 @@ export default function FilterBar({
   onPriceRangeChange,
   onClearPrice,
 }: FilterBarProps) {
+  const t = useTranslations('Filter')
+  const tCommon = useTranslations('Common')
+
   return (
     <Card className="h-fit w-full shadow-sm">
       <CardContent className="space-y-5 p-y-4">
         <div>
-          <p className="mb-1.5">Search</p>
-          <Input type="text" value={query} onChange={(e) => onQueryChange(e.target.value)} placeholder="Search by brand or model..." />
+          <p className="mb-1.5">{t('search')}</p>
+          <Input type="text" value={query} onChange={(e) => onQueryChange(e.target.value)} placeholder={t('searchPlaceholder')} />
         </div>
 
         <div>
           <div className="mb-1.5 flex items-center justify-between">
-            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Price range (THB)</p>
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{t('priceRange')}</p>
             {(priceRange[0] > 0 || priceRange[1] < DEFAULT_PRICE_RANGE[1]) && (
               <Button type="button" variant="ghost" size="xs" onClick={onClearPrice} className="cursor-pointer">
-                Clear
+                {tCommon('clear')}
               </Button>
             )}
           </div>
@@ -75,7 +79,7 @@ export default function FilterBar({
           </div>
         </div>
 
-        <FilterGroup label="Brand">
+        <FilterGroup label={t('brand')}>
           {BRANDS.map((b) => (
             <FilterChip key={b} active={brand === b} onClick={() => onBrandChange(b)}>
               {b}
@@ -83,7 +87,7 @@ export default function FilterBar({
           ))}
         </FilterGroup>
 
-        <FilterGroup label="Powertrain type">
+        <FilterGroup label={t('powertrainType')}>
           {POWERTRAIN_TYPES.map((t) => (
             <FilterChip key={t} active={powertrain === t} onClick={() => onPowertrainChange(t)}>
               {t}
@@ -91,7 +95,7 @@ export default function FilterBar({
           ))}
         </FilterGroup>
 
-        <FilterGroup label="Subtype">
+        <FilterGroup label={t('subtype')}>
           {SUBTYPES.map((s) => (
             <FilterChip key={s} active={subtype === s} onClick={() => onSubtypeChange(s)}>
               {s}
@@ -99,7 +103,7 @@ export default function FilterBar({
           ))}
         </FilterGroup>
 
-        <FilterGroup label="Category">
+        <FilterGroup label={t('category')}>
           {CATEGORIES.map((c) => (
             <FilterChip key={c} active={category === c} onClick={() => onCategoryChange(c)}>
               {c === 'All' ? <></> : <CategoryIcon category={c} className="size-7" />}

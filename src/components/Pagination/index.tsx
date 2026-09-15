@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   Pagination as PaginationRoot,
@@ -13,12 +14,13 @@ interface PaginationProps {
 }
 
 export function Pagination({ page, pageCount, total, onChange }: PaginationProps) {
+  const t = useTranslations('Common')
   const pageList = Array.from({ length: pageCount }, (_, i) => i + 1)
 
   return (
     <PaginationRoot className="mt-10 flex-col gap-4 sm:flex-row sm:justify-between">
       <p className="text-sm text-muted-foreground tabular-nums">
-        {total} car{total !== 1 ? 's' : ''} · Page {page} of {pageCount}
+        {total} {total !== 1 ? t('cars') : t('car')} · {t('page')} {page} {t('of')} {pageCount}
       </p>
       <PaginationContent>
         <PaginationItem>
@@ -30,7 +32,7 @@ export function Pagination({ page, pageCount, total, onChange }: PaginationProps
             onClick={() => onChange(page - 1)}
             className="cursor-pointer"
           >
-            Previous
+            {t('previous')}
           </Button>
         </PaginationItem>
         {pageList.map((p) => (
@@ -56,7 +58,7 @@ export function Pagination({ page, pageCount, total, onChange }: PaginationProps
             onClick={() => onChange(page + 1)}
             className="cursor-pointer"
           >
-            Next
+            {t('next')}
           </Button>
         </PaginationItem>
       </PaginationContent>

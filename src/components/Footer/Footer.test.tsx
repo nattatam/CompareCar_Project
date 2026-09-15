@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
+import { renderWithIntl } from '@/test/renderWithIntl'
 import Footer from './'
 
 vi.mock('next/link', () => ({
@@ -12,19 +13,19 @@ vi.mock('next/link', () => ({
 
 describe('Footer', () => {
   it('renders the brand line', () => {
-    render(<Footer />)
+    renderWithIntl(<Footer />)
     expect(
       screen.getByText('CompareCar — independent car comparison platform. Data for reference only.')
     ).toBeInTheDocument()
   })
 
   it('renders the disclaimer link', () => {
-    render(<Footer />)
+    renderWithIntl(<Footer />)
     expect(screen.getByRole('link', { name: 'Disclaimer' })).toHaveAttribute('href', '/disclaimer')
   })
 
   it('renders the image credits link', () => {
-    render(<Footer />)
+    renderWithIntl(<Footer />)
     expect(screen.getByRole('link', { name: 'Image credits (Wikimedia Commons)' })).toHaveAttribute('href', '/credits')
   })
 })

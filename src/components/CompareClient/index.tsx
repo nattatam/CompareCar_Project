@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Search } from 'lucide-react'
 import { cars } from '@/data/cars'
 import type { Car } from '@/lib/types'
@@ -16,21 +17,24 @@ import { CompareValue } from '@/components/compare/CompareValue'
 import { WinnerIndicator } from '@/components/compare/WinnerIndicator'
 import { SpecRow } from '@/components/compare/SpecRow'
 
-const SPEC_ROWS: Array<{ key: string; label: string; unit?: string; higherBetter?: boolean }> = [
-  { key: 'torque', label: 'Torque', unit: 'Nm', higherBetter: true },
-  { key: 'range', label: 'Range', unit: 'km', higherBetter: true },
-  { key: 'topSpeed', label: 'Top Speed', unit: 'km/h', higherBetter: true },
-  { key: 'acceleration', label: '0-100 km/h', unit: 's' },
-  { key: 'seats', label: 'Seats', higherBetter: true },
-  { key: 'weight', label: 'Weight', unit: 'kg' },
-  { key: 'drivetrain', label: 'Drivetrain' },
-  { key: 'groundClearance', label: 'Ground Clearance', unit: 'mm', higherBetter: true },
-  { key: 'trunkCapacity', label: 'Trunk Capacity', unit: 'L', higherBetter: true },
+const SPEC_ROWS: Array<{ key: string; labelKey: string; unit?: string; higherBetter?: boolean }> = [
+  { key: 'torque', labelKey: 'torque', unit: 'Nm', higherBetter: true },
+  { key: 'range', labelKey: 'range', unit: 'km', higherBetter: true },
+  { key: 'topSpeed', labelKey: 'topSpeed', unit: 'km/h', higherBetter: true },
+  { key: 'acceleration', labelKey: 'acceleration', unit: 's' },
+  { key: 'seats', labelKey: 'seats', higherBetter: true },
+  { key: 'weight', labelKey: 'weight', unit: 'kg' },
+  { key: 'drivetrain', labelKey: 'drivetrain' },
+  { key: 'groundClearance', labelKey: 'groundClearance', unit: 'mm', higherBetter: true },
+  { key: 'trunkCapacity', labelKey: 'trunkCapacity', unit: 'L', higherBetter: true },
 ]
 
 export default function CompareClient() {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const t = useTranslations('Compare')
+  const tSpec = useTranslations('CompareSpec')
+  const tCommon = useTranslations('Common')
   const [pickerOpen, setPickerOpen] = useState(false)
   const [query, setQuery] = useState('')
 
@@ -60,7 +64,7 @@ export default function CompareClient() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-3xl font-bold text-foreground">Compare Cars</h1>
+        <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
         {compared.length < 5 && (
           <Button
             type="button"
@@ -70,16 +74,16 @@ export default function CompareClient() {
               setQuery('')
             }}
           >
-            {pickerOpen ? 'Close picker' : '+ Add car'}
+            {pickerOpen ? t('closePicker') : t('addCar')}
           </Button>
         )}
       </div>
 
       {compared.length === 0 && !pickerOpen && (
         <Card className="p-16 text-center">
-          <p className="text-muted-foreground">No cars selected for comparison.</p>
+          <p className="text-muted-foreground">{t('noCars')}</p>
           <Button type="button" onClick={() => setPickerOpen(true)} className="mt-4">
-            Add cars to compare
+            {t('addCarsToCompare')}
           </Button>
         </Card>
       )}
@@ -92,8 +96,8 @@ export default function CompareClient() {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search car name..."
-              aria-label="Search cars to compare"
+              placeholder={t('searchPlaceholder')}
+              aria-label={t('searchLabel')}
               className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary focus-visible:ring-2 focus-visible:ring-primary"
             />
           </div>
@@ -119,7 +123,7 @@ export default function CompareClient() {
             ))}
             {filtered.length === 0 && (
               <p className="col-span-full py-3 text-center text-sm text-muted-foreground">
-                {available.length === 0 ? 'All cars are being compared.' : 'No cars match your search.'}
+                {available.length === 0 ? t('allCompared') : t('noMatch')}
               </p>
             )}
           </CardContent>
@@ -133,7 +137,7 @@ export default function CompareClient() {
               <Table className="table-fixed">
                 <TableHeader>
                   <TableRow className="bg-muted">
-                    <TableHead className="w-40 p-4 font-medium text-muted-foreground">Specification</TableHead>
+                    <TableHead className="w-40 p-4 font-medium text-muted-foreground">{t('specification')}</TableHead>
                     {compared.map((car, i) => (
                       <TableHead key={car.id} className="p-4 text-left align-top">
                         <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg bg-muted">
@@ -150,7 +154,7 @@ export default function CompareClient() {
                             onClick={() => removeCar(i)}
                             className="text-muted-foreground hover:text-destructive"
                           >
-                            Remove
+                            {tCommon('remove')}
                           </Button>
                         </div>
                         <PowertrainBadge powertrain={car.powertrain} className="mt-1" />
@@ -166,7 +170,7 @@ export default function CompareClient() {
                     const bestIdx = bestValueIndices(values, row.higherBetter)
                     return (
                       <TableRow key={row.key} className={same ? '' : 'bg-amber-50/60'}>
-                        <TableCell className="p-4 font-medium text-foreground/80">{row.label}</TableCell>
+                        <TableCell className="p-4 font-medium text-foreground/80">{tSpec(row.labelKey)}</TableCell>
                         {compared.map((car, i) => {
                           const v = getSpecValue(car, row.key)
                           const isBest = !same && bestIdx.includes(i)
@@ -206,13 +210,13 @@ export default function CompareClient() {
                       onClick={() => removeCar(i)}
                       className="text-muted-foreground hover:text-destructive"
                     >
-                      Remove
+                      {tCommon('remove')}
                     </Button>
                   </div>
                   <p className="text-sm font-semibold text-foreground tabular-nums">{formatPrice(car.price)}</p>
                   <dl className="mt-3 divide-y divide-border">
                     {SPEC_ROWS.map((row) => (
-                      <SpecRow key={row.key} label={row.label} value={getSpecValue(car, row.key)} unit={row.unit} />
+                      <SpecRow key={row.key} label={tSpec(row.labelKey)} value={getSpecValue(car, row.key)} unit={row.unit} />
                     ))}
                   </dl>
                 </CardContent>
