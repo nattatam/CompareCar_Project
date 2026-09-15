@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { cars } from "@/data/cars";
 import type { PowertrainType, Category } from "@/lib/types";
 import { badgeLabel } from "@/lib/types";
@@ -17,6 +18,7 @@ import DisclaimerBox from "@/components/DisclaimerBox";
 
 export default function CatalogClient() {
   const router = useRouter();
+  const t = useTranslations('Catalog');
   const [query, setQuery] = useState("");
   const [powertrain, setPowertrain] = useState<"All" | PowertrainType>("All");
   const [subtype, setSubtype] = useState<Subtype>("All");
@@ -96,9 +98,9 @@ export default function CatalogClient() {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 pb-32">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Car Catalog</h1>
+        <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
         <p className="mt-1 text-muted-foreground">
-          Browse cars, filter by powertrain, and select up to 5 to compare.
+          {t('subtitle')}
         </p>
       </div>
 
@@ -145,7 +147,7 @@ export default function CatalogClient() {
 
           {filtered.length === 0 ? (
             <Card className="py-16 text-center">
-              <p className="text-muted-foreground">No cars match your filters.</p>
+              <p className="text-muted-foreground">{t('empty')}</p>
             </Card>
           ) : (
             <div className="scroll-mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">

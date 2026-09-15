@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { cars } from "@/data/cars";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import { formatPrice, badgeLabel } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -75,6 +76,10 @@ export default async function CarDetailPage({ params }: Props) {
   const car = cars.find((c) => c.id === id);
   if (!car) notFound();
 
+  const t = await getTranslations('Detail');
+  const tSpec = await getTranslations('CarSpec');
+  const tPowertrain = await getTranslations('Powertrain');
+
   const features = CAR_FEATURES[id];
   const intelligentAssist =
     car.specs.intelligentAssist ?? features?.intelligentAssist;
@@ -87,41 +92,41 @@ export default async function CarDetailPage({ params }: Props) {
 
   if ("horsepower" in car.specs) {
     const ice = car.specs;
-    specRows.push({ label: "Horsepower", value: `${ice.horsepower} hp` });
-    specRows.push({ label: "Torque", value: `${ice.torque} Nm` });
+    specRows.push({ label: tSpec('horsepower'), value: `${ice.horsepower} hp` });
+    specRows.push({ label: tSpec('torque'), value: `${ice.torque} Nm` });
     if (ice.topSpeed != null)
-      specRows.push({ label: "Top Speed", value: `${ice.topSpeed} km/h` });
+      specRows.push({ label: tSpec('topSpeed'), value: `${ice.topSpeed} km/h` });
     if (ice.acceleration.zeroToHundred != null)
-      specRows.push({ label: "0–100 km/h", value: `${ice.acceleration.zeroToHundred} s` });
+      specRows.push({ label: tSpec('acceleration'), value: `${ice.acceleration.zeroToHundred} s` });
     if (ice.fuelEconomy != null)
-      specRows.push({ label: "Fuel Economy", value: `${ice.fuelEconomy} L/100km` });
-    specRows.push({ label: "Transmission", value: ice.transmission });
-    specRows.push({ label: "Engine", value: ice.engine });
-    specRows.push({ label: "Seats", value: `${ice.seats}` });
+      specRows.push({ label: tSpec('fuelEconomy'), value: `${ice.fuelEconomy} L/100km` });
+    specRows.push({ label: tSpec('transmission'), value: ice.transmission });
+    specRows.push({ label: tSpec('engine'), value: ice.engine });
+    specRows.push({ label: tSpec('seats'), value: `${ice.seats}` });
     if (ice.weight != null)
-      specRows.push({ label: "Weight", value: `${ice.weight} kg` });
-    specRows.push({ label: "Drivetrain", value: ice.drivetrain });
+      specRows.push({ label: tSpec('weight'), value: `${ice.weight} kg` });
+    specRows.push({ label: tSpec('drivetrain'), value: ice.drivetrain });
   } else {
     const ev = car.specs;
-    specRows.push({ label: "Power", value: `${ev.powerKw} kW` });
-    specRows.push({ label: "Torque", value: `${ev.torque} Nm` });
+    specRows.push({ label: tSpec('power'), value: `${ev.powerKw} kW` });
+    specRows.push({ label: tSpec('torque'), value: `${ev.torque} Nm` });
     if (ev.topSpeed != null)
-      specRows.push({ label: "Top Speed", value: `${ev.topSpeed} km/h` });
+      specRows.push({ label: tSpec('topSpeed'), value: `${ev.topSpeed} km/h` });
     if (ev.acceleration.zeroToHundred != null)
-      specRows.push({ label: "0–100 km/h", value: `${ev.acceleration.zeroToHundred} s` });
+      specRows.push({ label: tSpec('acceleration'), value: `${ev.acceleration.zeroToHundred} s` });
     if (ev.range.wltp != null)
-      specRows.push({ label: "Range (WLTP)", value: `${ev.range.wltp} km` });
+      specRows.push({ label: tSpec('rangeWLTP'), value: `${ev.range.wltp} km` });
     if (ev.range.nedc != null)
-      specRows.push({ label: "Range (NEDC)", value: `${ev.range.nedc} km` });
+      specRows.push({ label: tSpec('rangeNEDC'), value: `${ev.range.nedc} km` });
     specRows.push({
-      label: "Battery",
+      label: tSpec('battery'),
       value: `${ev.battery.capacity} kWh (${ev.battery.type})`,
     });
-    specRows.push({ label: "Motor", value: ev.motorType });
-    specRows.push({ label: "Seats", value: `${ev.seats}` });
+    specRows.push({ label: tSpec('motor'), value: ev.motorType });
+    specRows.push({ label: tSpec('seats'), value: `${ev.seats}` });
     if (ev.weight != null)
-      specRows.push({ label: "Weight", value: `${ev.weight} kg` });
-    specRows.push({ label: "Drivetrain", value: ev.drivetrain });
+      specRows.push({ label: tSpec('weight'), value: `${ev.weight} kg` });
+    specRows.push({ label: tSpec('drivetrain'), value: ev.drivetrain });
   }
 
   return (
@@ -142,7 +147,7 @@ export default async function CarDetailPage({ params }: Props) {
       <Button asChild variant="outline" size="sm">
         <Link href="/">
           <ArrowLeft />
-          Back to catalog
+          {t('backToCatalog')}
         </Link>
       </Button>
 
@@ -178,7 +183,7 @@ export default async function CarDetailPage({ params }: Props) {
                 {formatPrice(car.price)}
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Powertrain: {powertrainDescription(car)}
+                {t('powertrain')}: {powertrainDescription(car, tPowertrain)}
               </p>
               {car.officialUrl && (
                 <Button
@@ -192,7 +197,7 @@ export default async function CarDetailPage({ params }: Props) {
                     rel="noopener noreferrer"
                   >
                     <ExternalLink className="size-4" aria-hidden="true" />
-                    Official website
+                    {t('officialWebsite')}
                   </a>
                 </Button>
               )}
@@ -205,7 +210,7 @@ export default async function CarDetailPage({ params }: Props) {
           <Card className="p-5 shadow-md">
             <CardContent className="p-0">
               <h2 className="mb-4 text-lg font-semibold text-foreground">
-                Specifications
+                {t('specifications')}
               </h2>
               <dl className="grid gap-x-6 gap-y-3 sm:grid-cols-2">
                 {specRows.map((row) => (
@@ -231,11 +236,10 @@ export default async function CarDetailPage({ params }: Props) {
           <Card className="mt-6 p-5 shadow-md">
             <CardContent className="p-0">
               <h2 className="mb-2 text-lg font-semibold text-foreground">
-                Performance vs category
+                {t('performanceVsCategory')}
               </h2>
               <p className="mb-4 text-xs text-muted-foreground">
-                Radar of key performance metrics (normalized against the entire
-                catalog).
+                {t('radarDescription')}
               </p>
               <SpecRadar car={car} />
             </CardContent>
@@ -244,7 +248,7 @@ export default async function CarDetailPage({ params }: Props) {
           <Card className="mt-6 p-5 shadow-md">
             <CardContent className="p-0">
               <h2 className="mb-4 text-lg font-semibold text-foreground">
-                Specs vs {car.category} average
+                {t('specsVsAverage', { category: car.category })}
               </h2>
               <BarChartCard car={car} />
             </CardContent>
@@ -256,17 +260,17 @@ export default async function CarDetailPage({ params }: Props) {
   );
 }
 
-function powertrainDescription(car: (typeof cars)[number]) {
-  if (car.powertrain.type === "ICE") return "ICE (Internal Combustion Engine)";
-  if (car.powertrain.type === "EV") return "EV (Battery Electric)";
+function powertrainDescription(car: (typeof cars)[number], t: Awaited<ReturnType<typeof getTranslations>>) {
+  if (car.powertrain.type === "ICE") return t('ICE');
+  if (car.powertrain.type === "EV") return t('EV');
   switch (car.powertrain.subtype) {
     case "MHEV":
-      return "HEV — Mild Hybrid";
+      return t('MHEV');
     case "PHEV":
-      return "HEV — Plug-in Hybrid";
+      return t('PHEV');
     case "REEV/EREV":
-      return "HEV — Range-Extended EV";
+      return t('REEV');
     default:
-      return "HEV — Conventional Hybrid";
+      return t('HEV');
   }
 }

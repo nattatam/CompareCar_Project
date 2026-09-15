@@ -8,6 +8,7 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
 } from 'recharts'
+import { useTranslations } from 'next-intl'
 import { cars } from '@/data/cars'
 import type { Car } from '@/lib/types'
 
@@ -38,11 +39,12 @@ interface SpecRadarProps {
 }
 
 export function SpecRadar({ car }: SpecRadarProps) {
+  const t = useTranslations('CarCard')
   const metrics: Array<{ key: NumericKey; label: string; invert?: boolean }> = [
-    { key: 'power', label: 'Power' },
-    { key: 'torque', label: 'Torque' },
-    { key: 'acceleration', label: '0-100 km/h', invert: true },
-    { key: 'topSpeed', label: 'Top Speed' },
+    { key: 'power', label: t('power') },
+    { key: 'torque', label: t('torque') },
+    { key: 'acceleration', label: t('acceleration'), invert: true },
+    { key: 'topSpeed', label: t('topSpeed') },
   ]
 
   const categoryCars = cars.filter((c) => c.category === car.category)

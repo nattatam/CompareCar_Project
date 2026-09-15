@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import type { Car } from '@/lib/types'
+import { renderWithIntl } from '@/test/renderWithIntl'
 import { getValue, SpecRadar } from '.'
 
 vi.mock('recharts', async () => {
@@ -72,7 +73,7 @@ describe('getValue', () => {
 
 describe('SpecRadar', () => {
   it('renders without crashing', () => {
-    render(<SpecRadar car={ice} />)
+    renderWithIntl(<SpecRadar car={ice} />)
     expect(screen.getByTestId('chart-container')).toBeInTheDocument()
   })
 })

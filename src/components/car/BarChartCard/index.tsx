@@ -9,6 +9,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from 'recharts'
+import { useTranslations } from 'next-intl'
 import { cars } from '@/data/cars'
 import type { Car } from '@/lib/types'
 import { getValue } from '@/components/car/SpecRadar'
@@ -21,6 +22,7 @@ interface BarChartCardProps {
 }
 
 export function BarChartCard({ car }: BarChartCardProps) {
+  const t = useTranslations('CarCard')
   const categoryCars = cars.filter((c) => c.category === car.category)
 
   function avgForKey(key: Parameters<typeof getValue>[1]): number {
@@ -29,19 +31,19 @@ export function BarChartCard({ car }: BarChartCardProps) {
 
   const items = [
     {
-      label: 'Power',
+      label: t('power'),
       value: getValue(car, 'power'),
       avg: avgForKey('power'),
       unit: 'hp',
     },
     {
-      label: 'Torque',
+      label: t('torque'),
       value: getValue(car, 'torque'),
       avg: avgForKey('torque'),
       unit: 'Nm',
     },
     {
-      label: 'Top Speed',
+      label: t('topSpeed'),
       value: getValue(car, 'topSpeed'),
       avg: avgForKey('topSpeed'),
       unit: 'km/h',
