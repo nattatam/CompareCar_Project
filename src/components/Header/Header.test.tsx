@@ -19,7 +19,8 @@ vi.mock('next/image', () => ({
 }))
 
 vi.mock('next/navigation', () => ({
-  useRouter: () => ({ refresh: vi.fn() }),
+  useRouter: () => ({ replace: vi.fn(), refresh: vi.fn() }),
+  usePathname: () => '/admin/cars',
 }))
 
 describe('Header', () => {
@@ -37,5 +38,20 @@ describe('Header', () => {
     renderWithIntl(<Header />)
     expect(screen.getByRole('link', { name: 'Catalog' })).toHaveAttribute('href', '/')
     expect(screen.getByRole('link', { name: 'Compare' })).toHaveAttribute('href', '/compare')
+  })
+
+  it('hides the admin menu by default', () => {
+    renderWithIntl(<Header />)
+    expect(screen.queryByRole('button', { name: 'Admin menu' })).not.toBeInTheDocument()
+  })
+
+  it('shows the admin menu for a logged-in user', () => {
+    renderWithIntl(<Header showAdminMenu />)
+    expect(screen.getByRole('button', { name: 'Admin menu' })).toBeInTheDocument()
+  })
+
+  it('shows the logged-in admin name', () => {
+    renderWithIntl(<Header showAdminMenu adminName="Somchai" />)
+    expect(screen.getByText('Admin: Somchai')).toBeInTheDocument()
   })
 })

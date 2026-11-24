@@ -3,9 +3,16 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import AdminNav from '@/components/admin/AdminNav'
 
-export default function Header() {
+type HeaderProps = {
+  showAdminMenu?: boolean
+  adminName?: string | null
+}
+
+export default function Header({ showAdminMenu = false, adminName }: HeaderProps) {
   const t = useTranslations('Nav')
+  const tAdmin = useTranslations('AdminNav')
 
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-card/90 backdrop-blur">
@@ -21,6 +28,19 @@ export default function Header() {
           <Button asChild variant="ghost" size="sm">
             <Link href="/compare">{t('compare')}</Link>
           </Button>
+          {showAdminMenu && (
+            <>
+              {adminName && (
+                <span
+                  className="hidden max-w-40 truncate text-xs text-muted-foreground md:inline"
+                  title={adminName}
+                >
+                  {tAdmin('label')}: {adminName}
+                </span>
+              )}
+              <AdminNav adminName={adminName} />
+            </>
+          )}
           <LanguageSwitcher />
         </nav>
       </div>

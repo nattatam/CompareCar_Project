@@ -1,16 +1,18 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Search } from 'lucide-react'
-import { cars } from '@/data/cars'
-import type { Car } from '@/lib/types'
+import { Loader2 } from 'lucide-react'
+import type { CompareCarDTO } from '@/lib/dto/compare'
+import type { CarListItemDTO } from '@/lib/dto/car'
+import type { Powertrain } from '@/lib/types'
 import { formatPrice } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { SearchInput } from '@/components/ui/search-input'
 import CarImage from '@/components/CarImage'
 import PowertrainBadge from '@/components/PowertrainBadge'
 import { CompareValue } from '@/components/compare/CompareValue'
@@ -29,35 +31,115 @@ const SPEC_ROWS: Array<{ key: string; labelKey: string; unit?: string; higherBet
   { key: 'trunkCapacity', labelKey: 'trunkCapacity', unit: 'L', higherBetter: true },
 ]
 
+const MAX_COMPARE = 5
+const PICKER_LIMIT = 20
+const PICKER_DEBOUNCE_MS = 300
+
 export default function CompareClient() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const t = useTranslations('Compare')
   const tSpec = useTranslations('CompareSpec')
   const tCommon = useTranslations('Common')
+
+  const idsParam = searchParams.get('ids') ?? ''
+  const ids = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          idsParam
+            .split(',')
+            .map((id) => id.trim())
+            .filter(Boolean)
+        )
+      ).slice(0, MAX_COMPARE),
+    [idsParam]
+  )
+
   const [pickerOpen, setPickerOpen] = useState(false)
   const [query, setQuery] = useState('')
+  const [compared, setCompared] = useState<CompareCarDTO[]>([])
+  const [missingIds, setMissingIds] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(ids.length > 0)
+  const [error, setError] = useState(false)
+  const [pickerCars, setPickerCars] = useState<CarListItemDTO[]>([])
+  const [pickerLoading, setPickerLoading] = useState(false)
 
-  const ids = useMemo(() => (searchParams.get('ids') ?? '').split(',').filter(Boolean).slice(0, 5), [searchParams])
+  useEffect(() => {
+    if (ids.length === 0) return
 
-  const compared: Car[] = useMemo(() => ids.map((id) => cars.find((c) => c.id === id)!).filter(Boolean), [ids])
+    const controller = new AbortController()
 
-  const available = cars.filter((c) => !ids.includes(c.id))
+    async function load() {
+      setIsLoading(true)
+      setError(false)
+      try {
+        const res = await fetch(`/api/compare?ids=${encodeURIComponent(ids.join(','))}`, {
+          signal: controller.signal,
+        })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = await res.json()
+        setCompared(Array.isArray(json.data) ? json.data : [])
+        setMissingIds(Array.isArray(json.missingIds) ? json.missingIds : [])
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return
+        setCompared([])
+        setError(true)
+      } finally {
+        if (!controller.signal.aborted) setIsLoading(false)
+      }
+    }
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return available
-    return available.filter((c) => `${c.brand} ${c.model}`.toLowerCase().includes(q))
-  }, [available, query])
+    load()
+    return () => controller.abort()
+  }, [ids])
+
+  useEffect(() => {
+    if (!pickerOpen) return
+
+    const controller = new AbortController()
+    const delay = query.trim() ? PICKER_DEBOUNCE_MS : 0
+    const timer = setTimeout(async () => {
+      setPickerLoading(true)
+      try {
+        const params = new URLSearchParams({ limit: String(PICKER_LIMIT) })
+        if (query.trim()) params.set('q', query.trim())
+        const res = await fetch(`/api/cars?${params.toString()}`, { signal: controller.signal })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const json = await res.json()
+        setPickerCars(Array.isArray(json.data) ? json.data : [])
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return
+        setPickerCars([])
+      } finally {
+        if (!controller.signal.aborted) setPickerLoading(false)
+      }
+    }, delay)
+
+    return () => {
+      clearTimeout(timer)
+      controller.abort()
+    }
+  }, [pickerOpen, query])
+
+  const available = useMemo(() => pickerCars.filter((car) => !ids.includes(car.id)), [pickerCars, ids])
+
+  const hasIds = ids.length > 0
+  const visibleCompared = hasIds ? compared : []
+  const visibleMissingIds = hasIds ? missingIds : []
+  const showLoading = hasIds && isLoading && visibleCompared.length === 0
+  const showError = hasIds && error
 
   function addCar(id: string) {
-    if (compared.length >= 5) return
-    if (compared.length === 4) setPickerOpen(false)
-    router.push(`/compare?ids=${[...ids, id].join(',')}`)
+    if (ids.length >= MAX_COMPARE) return
+    if (!ids.includes(id)) {
+      router.push(`/compare?ids=${[...ids, id].join(',')}`)
+    }
+    if (ids.length === MAX_COMPARE - 1) setPickerOpen(false)
   }
 
-  function removeCar(idx: number) {
-    const next = ids.filter((_, i) => i !== idx)
+  function removeCar(id: string) {
+    const next = ids.filter((carId) => carId !== id)
     router.push(next.length ? `/compare?ids=${next.join(',')}` : '/compare')
   }
 
@@ -65,7 +147,7 @@ export default function CompareClient() {
     <div className="mx-auto w-full max-w-7xl px-4 py-8">
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-3xl font-bold text-foreground">{t('title')}</h1>
-        {compared.length < 5 && (
+        {ids.length < MAX_COMPARE && (
           <Button
             type="button"
             variant="outline"
@@ -79,30 +161,20 @@ export default function CompareClient() {
         )}
       </div>
 
-      {compared.length === 0 && !pickerOpen && (
-        <Card className="p-16 text-center">
-          <p className="text-muted-foreground">{t('noCars')}</p>
-          <Button type="button" onClick={() => setPickerOpen(true)} className="mt-4">
-            {t('addCarsToCompare')}
-          </Button>
-        </Card>
+      {visibleMissingIds.length > 0 && (
+        <p className="mb-4 text-sm text-muted-foreground" role="status">
+          {t('missingCars', { count: visibleMissingIds.length })}
+        </p>
       )}
 
-      {pickerOpen && compared.length < 5 && (
+      {pickerOpen && ids.length < MAX_COMPARE && (
         <Card className="mb-6 p-4 shadow-sm">
           <div className="mb-3 flex items-center gap-2">
-            <Search className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t('searchPlaceholder')}
-              aria-label={t('searchLabel')}
-              className="w-full rounded-lg border border-border bg-background px-3 py-1.5 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary focus-visible:ring-2 focus-visible:ring-primary"
-            />
+            <SearchInput value={query} onValueChange={setQuery} label={t('searchLabel')} placeholder={t('searchPlaceholder')} className="w-full" />
+            {pickerLoading && <Loader2 className="size-4 shrink-0 animate-spin text-muted-foreground" aria-hidden="true" />}
           </div>
           <CardContent className="grid max-h-72 grid-cols-1 gap-2 overflow-y-auto p-0 pr-1 sm:grid-cols-4">
-            {filtered.map((car) => (
+            {available.map((car) => (
               <button
                 key={car.id}
                 type="button"
@@ -117,20 +189,40 @@ export default function CompareClient() {
                     {car.brand} {car.model}
                   </p>
                   <p className="truncate text-xs text-muted-foreground">{car.subModel ?? '—'}</p>
-                  <PowertrainBadge powertrain={car.powertrain} />
+                  <PowertrainBadge powertrain={car.powerTrain as Powertrain} />
                 </div>
               </button>
             ))}
-            {filtered.length === 0 && (
-              <p className="col-span-full py-3 text-center text-sm text-muted-foreground">
-                {available.length === 0 ? t('allCompared') : t('noMatch')}
-              </p>
+            {!pickerLoading && available.length === 0 && (
+              <p className="col-span-full py-3 text-center text-sm text-muted-foreground">{query.trim() ? t('noMatch') : t('allCompared')}</p>
             )}
           </CardContent>
         </Card>
       )}
 
-      {compared.length > 0 && (
+      {showLoading && (
+        <div className="flex items-center justify-center gap-2 py-16 text-muted-foreground">
+          <Loader2 className="size-5 animate-spin" aria-hidden="true" />
+          <span>{t('loading')}</span>
+        </div>
+      )}
+
+      {showError && (
+        <Card className="p-16 text-center">
+          <p className="text-muted-foreground">{t('error')}</p>
+        </Card>
+      )}
+
+      {!showLoading && !showError && visibleCompared.length === 0 && !pickerOpen && (
+        <Card className="p-16 text-center">
+          <p className="text-muted-foreground">{t('noCars')}</p>
+          <Button type="button" onClick={() => setPickerOpen(true)} className="mt-4">
+            {t('addCarsToCompare')}
+          </Button>
+        </Card>
+      )}
+
+      {visibleCompared.length > 0 && (
         <>
           <div className="hidden md:block">
             <Card className="overflow-x-auto p-0 shadow-md">
@@ -138,26 +230,26 @@ export default function CompareClient() {
                 <TableHeader>
                   <TableRow className="bg-muted">
                     <TableHead className="w-40 p-4 font-medium text-muted-foreground">{t('specification')}</TableHead>
-                    {compared.map((car, i) => (
+                    {visibleCompared.map((car) => (
                       <TableHead key={car.id} className="p-4 text-left align-top">
                         <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg bg-muted">
-                          <CarImage src={car.image} alt="" sizes="320px" className="object-contain" />
+                          <CarImage src={car.image} alt={`${car.brand} ${car.model}`} sizes="320px" className="object-contain" />
                         </div>
                         <div className="mt-2 flex items-center justify-between gap-2">
-                          <Link href={`/car/${car.id}`} className="cursor-pointer font-semibold text-foreground hover:text-primary">
+                          <Link href={`/car/${car.name}`} className="cursor-pointer font-semibold text-foreground hover:text-primary">
                             {car.brand} {car.model}
                           </Link>
                           <Button
                             type="button"
                             variant="ghost"
                             size="xs"
-                            onClick={() => removeCar(i)}
+                            onClick={() => removeCar(car.id)}
                             className="text-muted-foreground hover:text-destructive"
                           >
                             {tCommon('remove')}
                           </Button>
                         </div>
-                        <PowertrainBadge powertrain={car.powertrain} className="mt-1" />
+                        <PowertrainBadge powertrain={toPowertrain(car)} className="mt-1" />
                         <p className="mt-1 text-sm font-semibold text-foreground tabular-nums">{formatPrice(car.price)}</p>
                       </TableHead>
                     ))}
@@ -165,13 +257,13 @@ export default function CompareClient() {
                 </TableHeader>
                 <TableBody>
                   {SPEC_ROWS.map((row) => {
-                    const values = compared.map((c) => getSpecValue(c, row.key))
+                    const values = visibleCompared.map((c) => getSpecValue(c, row.key))
                     const same = values.every((v, _, arr) => v === arr[0])
                     const bestIdx = bestValueIndices(values, row.higherBetter)
                     return (
                       <TableRow key={row.key} className={same ? '' : 'bg-amber-50/60'}>
                         <TableCell className="p-4 font-medium text-foreground/80">{tSpec(row.labelKey)}</TableCell>
-                        {compared.map((car, i) => {
+                        {visibleCompared.map((car, i) => {
                           const v = getSpecValue(car, row.key)
                           const isBest = !same && bestIdx.includes(i)
                           return (
@@ -190,24 +282,24 @@ export default function CompareClient() {
           </div>
 
           <div className="space-y-4 md:hidden">
-            {compared.map((car, i) => (
+            {visibleCompared.map((car) => (
               <Card key={car.id} className="gap-0 overflow-hidden p-0 shadow-sm">
                 <div className="relative aspect-[16/9] bg-muted">
-                  <CarImage src={car.image} alt="" sizes="100vw" />
+                  <CarImage src={car.image} alt={`${car.brand} ${car.model}`} sizes="100vw" />
                   <div className="absolute left-3 top-3">
-                    <PowertrainBadge powertrain={car.powertrain} />
+                    <PowertrainBadge powertrain={toPowertrain(car)} />
                   </div>
                 </div>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
-                    <Link href={`/car/${car.id}`} className="cursor-pointer text-lg font-semibold text-foreground hover:text-primary">
+                    <Link href={`/car/${car.name}`} className="cursor-pointer text-lg font-semibold text-foreground hover:text-primary">
                       {car.brand} {car.model}
                     </Link>
                     <Button
                       type="button"
                       variant="ghost"
                       size="xs"
-                      onClick={() => removeCar(i)}
+                      onClick={() => removeCar(car.id)}
                       className="text-muted-foreground hover:text-destructive"
                     >
                       {tCommon('remove')}
@@ -229,6 +321,13 @@ export default function CompareClient() {
   )
 }
 
+function toPowertrain(car: CompareCarDTO): Powertrain {
+  return {
+    type: car.powerTrain.type as Powertrain['type'],
+    subType: car.powerTrain.subType as Powertrain['subType'],
+  }
+}
+
 function bestValueIndices(values: Array<number | string | null>, higherBetter?: boolean): number[] {
   const numeric = values.map((v) => (typeof v === 'number' ? v : null))
   if (numeric.every((v) => v === null)) return []
@@ -237,16 +336,12 @@ function bestValueIndices(values: Array<number | string | null>, higherBetter?: 
   return numeric.reduce<number[]>((acc, v, i) => (v === target ? [...acc, i] : acc), [])
 }
 
-function getSpecValue(car: Car, key: string): number | string | null {
-  const specs = car.specs as unknown as Record<string, unknown>
-  const v = specs[key]
-  if (key === 'acceleration' && typeof v === 'object' && v !== null && 'zeroToHundred' in v) return (v as { zeroToHundred: number }).zeroToHundred
-  if (key === 'range' && typeof v === 'object' && v !== null) {
-    const range = v as { wltp?: number; nedc?: number }
-    if (range.wltp != null) return range.wltp
-    if (range.nedc != null) return range.nedc
-    return null
+function getSpecValue(car: CompareCarDTO, key: string): number | string | null {
+  if (!car.spec) return null
+  if (key === 'range') {
+    return car.spec.range?.wltp ?? car.spec.range?.nedc ?? null
   }
-  if (typeof v === 'number' || typeof v === 'string') return v
+  const value = car.spec[key as keyof typeof car.spec]
+  if (typeof value === 'number' || typeof value === 'string') return value
   return null
 }

@@ -7,7 +7,9 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AnalyticsGC from '@/components/Analytics'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { Toaster } from '@/components/ui/sonner'
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/site'
+import { auth } from '@/lib/auth/server'
 import { Analytics } from '@vercel/analytics/next'
 
 const geistSans = Geist({
@@ -79,16 +81,29 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const store = await cookies()
   const locale = store.get('locale')?.value || 'en'
 
+  let showAdminMenu = false
+  let adminName: string | null = null
+  try {
+    const session = await auth.getSession()
+    const user = session.data?.user
+    showAdminMenu = !session.error && Boolean(session.data?.session)
+    adminName = user?.name?.trim() || user?.email?.trim() || null
+  } catch {
+    showAdminMenu = false
+    adminName = null
+  }
+
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <NextIntlClientProvider>
-          <Header />
+          <Header showAdminMenu={showAdminMenu} adminName={adminName} />
           <main className="flex-1">
             <TooltipProvider>{children}</TooltipProvider>
           </main>
           <Footer />
         </NextIntlClientProvider>
+        <Toaster />
         <AnalyticsGC />
         <Analytics />
       </body>

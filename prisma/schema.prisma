@@ -1,0 +1,207 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs" // force to generate to CommonJs for support NestJs
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Car {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String   @db.VarChar(255)
+  brandId       String   @db.Uuid
+  modelId       String   @db.Uuid
+  subModelId    String?  @db.Uuid
+  year          Int
+  price         Decimal  @default(0) @db.Decimal(16, 2)
+  image         String
+  officialUrl   String
+  powerTrainId  String   @db.Uuid
+  categoryCarId String   @db.Uuid
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  specId        String   @unique @db.Uuid
+
+  brand       BrandCar     @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  model       ModelCar     @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  subModel    SubModelCar? @relation(fields: [subModelId], references: [id], onDelete: SetNull)
+  spec        SpecCar?     @relation(fields: [specId], references: [id], onDelete: Cascade)
+  powerTrain  PowerTrain   @relation(fields: [powerTrainId], references: [id])
+  categoryCar CategoryCar  @relation(fields: [categoryCarId], references: [id])
+  carFeatures CarFeature[]
+
+  @@index([brandId])
+  @@index([modelId])
+  @@index([subModelId])
+}
+
+model BrandCar {
+  id     String     @id @default(uuid()) @db.Uuid
+  name   String     @unique @db.VarChar(255)
+  cars   Car[]
+  models ModelCar[]
+}
+
+model ModelCar {
+  id      String @id @default(uuid()) @db.Uuid
+  name    String @db.VarChar(255)
+  brandId String @db.Uuid
+
+  brandCar  BrandCar      @relation(fields: [brandId], references: [id], onDelete: Restrict)
+  subModels SubModelCar[]
+  cars      Car[]
+
+  @@unique([brandId, name])
+  @@index([brandId])
+}
+
+model SubModelCar {
+  id      String @id @default(uuid()) @db.Uuid
+  name    String @db.VarChar(255)
+  modelId String @db.Uuid
+
+  model ModelCar @relation(fields: [modelId], references: [id], onDelete: Restrict)
+  cars  Car[]
+
+  @@unique([modelId, name])
+  @@index([modelId])
+}
+
+model PowerTrain {
+  id      String @id @default(uuid()) @db.Uuid
+  type    String
+  subType String
+  cars    Car[]
+}
+
+model CategoryCar {
+  id   String @id @default(uuid()) @db.Uuid
+  name String
+  cars Car[]
+}
+
+enum Drivetrain {
+  FWD
+  RWD
+  AWD
+}
+
+enum MotorType {
+  PMSM
+  INDUCTION
+  SYNCHRONOUS_RELUctANCE
+  DC_BRUSHED
+  WOUND_ROTOR
+  UNKNOWN
+}
+
+model DimensionCar {
+  id        String @id @default(uuid()) @db.Uuid
+  length    Int
+  width     Int
+  height    Int
+  wheelbase Int
+
+  specCars SpecCar[]
+}
+
+model SpecCar {
+  id               String     @id @default(uuid()) @db.Uuid
+  powerKw          Decimal    @default(0) @db.Decimal(16, 2)
+  torque           Decimal    @default(0) @db.Decimal(16, 2)
+  topSpeed         Decimal    @default(0) @db.Decimal(16, 2)
+  acceleration     Decimal    @default(0) @db.Decimal(16, 2)
+  batteryId        String     @db.Uuid
+  rangeId          String     @db.Uuid
+  chargingId       String     @db.Uuid
+  drivetrain       Drivetrain
+  motorType        MotorType
+  driveModes       String[]
+  dimensionId      String     @db.Uuid
+  groundClearance  Decimal    @default(0) @db.Decimal(16, 2)
+  weight           Decimal    @default(0) @db.Decimal(16, 2)
+  turningRadius    Decimal    @default(0) @db.Decimal(16, 2)
+  trunkCapacity    Decimal    @default(0) @db.Decimal(16, 2)
+  trunkCapacityMax Decimal    @default(0) @db.Decimal(16, 2)
+  seats            Int
+
+  battery      Battery      @relation(fields: [batteryId], references: [id], onDelete: Restrict)
+  range        Range        @relation(fields: [rangeId], references: [id], onDelete: Restrict)
+  charge       Charging     @relation(fields: [chargingId], references: [id], onDelete: Restrict)
+  dimensionCar DimensionCar @relation(fields: [dimensionId], references: [id], onDelete: Cascade)
+  car          Car?
+}
+
+enum BatteryType {
+  LFP
+  NMC
+  NCA
+  LTO
+}
+
+model Battery {
+  id       String      @id @default(uuid()) @db.Uuid
+  type     BatteryType
+  capacity Decimal     @default(0) @db.Decimal(16, 2)
+  specCars SpecCar[]
+}
+
+model Range {
+  id       String    @id @default(uuid()) @db.Uuid
+  nedc     Decimal   @default(0) @db.Decimal(16, 2)
+  wltp     Decimal?  @default(0) @db.Decimal(16, 2)
+  epa      Decimal?  @default(0) @db.Decimal(16, 2)
+  cltc     Decimal?  @default(0) @db.Decimal(16, 2)
+  specCars SpecCar[]
+}
+
+model Charging {
+  id       String    @id @default(uuid()) @db.Uuid
+  ac       Decimal   @default(0) @db.Decimal(16, 2)
+  dc       Decimal   @default(0) @db.Decimal(16, 2)
+  time     Decimal   @default(0) @db.Decimal(16, 2)
+  specCars SpecCar[]
+}
+
+enum FeatureCategory {
+  INTELLIGENT_ASSIST
+  SECURITY
+}
+
+model Feature {
+  id        String          @id @default(uuid()) @db.Uuid
+  name      String          @db.VarChar(255)
+  category  FeatureCategory
+  cars      CarFeature[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@unique([name, category])
+  @@index([category])
+}
+
+model CarFeature {
+  carId     String  @db.Uuid
+  featureId String  @db.Uuid
+  car       Car     @relation(fields: [carId], references: [id], onDelete: Cascade)
+  feature   Feature @relation(fields: [featureId], references: [id], onDelete: Cascade)
+
+  @@id([carId, featureId])
+  @@index([featureId])
+}
+
+model ImageCredit {
+  id         String   @id @default(uuid()) @db.Uuid
+  image      String   @unique
+  name       String   @db.VarChar(255)
+  author     String?  @db.VarChar(255)
+  sourceUrl  String
+  license    String   @db.VarChar(100)
+  licenseUrl String?
+  note       String?
+  videoUrl   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
