@@ -1,17 +1,18 @@
 'use client'
 
 import { Info } from 'lucide-react'
-import { getImageCredit } from '@/data/credits'
+import type { ImageCredit as ImageCreditData } from '@/lib/types'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 interface ImageCreditProps {
-  image: string
+  credit?: ImageCreditData | null
   className?: string
 }
 
-export default function ImageCredit({ image, className = 'absolute right-3 top-3' }: ImageCreditProps) {
-  const credit = getImageCredit(image)
+export default function ImageCredit({ credit, className = 'absolute right-3 top-3' }: ImageCreditProps) {
   if (!credit) return null
+
+  const attribution = credit.author ?? 'Public domain'
 
   return (
     <div className={className}>
@@ -19,7 +20,7 @@ export default function ImageCredit({ image, className = 'absolute right-3 top-3
         <TooltipTrigger asChild>
           <button
             type="button"
-            aria-label={`Photo by ${credit.author}, ${credit.license}`}
+            aria-label={`Photo by ${attribution}, ${credit.license}`}
             className="grid h-6 w-6 cursor-pointer place-items-center rounded-full bg-background/90 text-muted-foreground shadow-sm ring-1 ring-border transition hover:text-foreground"
           >
             <Info className="h-3.5 w-3.5" aria-hidden="true" />
@@ -28,7 +29,7 @@ export default function ImageCredit({ image, className = 'absolute right-3 top-3
         <TooltipContent sideOffset={6} className="max-w-80">
           <div className="flex flex-col gap-1.5 py-1">
             <p className="font-medium text-background">
-              Photo: <span className="not-italic">{credit.author}</span>
+              Photo: <span className="not-italic">{attribution}</span>
             </p>
             <p className="text-[11px] text-background/80">{credit.note ?? 'Image courtesy of the author.'}</p>
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">

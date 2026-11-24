@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:18 # ตรงกับ Neon 18.6 (pg_dump 18.x ใช้ได้)
+    container_name: local-pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql # note: v17 ลงไปใช้ /var/lib/postgresql/data
+      - ./dumps:/dump
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  pg:
+    image: postgres:18
+    profiles: ['tools'] # ไม่ขึ้นตอน `docker compose up`
+    environment:
+      PGPASSWORD: postgres
+      NEON_URL: ${DATABASE_URL} # ดึงจาก .env
+    volumes:
+      - ./dumps:/dump
+
+volumes:
+  pgdata:

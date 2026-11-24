@@ -31,7 +31,7 @@ const ice = {
     powerKw: 100,
     torque: 400,
     topSpeed: 240,
-    acceleration: { zeroToHundred: 5 },
+    acceleration: 5,
     seats: 5,
     drivetrain: 'AWD' as const,
     groundClearance: 200,
@@ -47,7 +47,7 @@ describe('getValue', () => {
     const ev = {
       ...ice,
       powertrain: { type: 'EV' },
-      specs: { powerKw: 100, torque: 400, topSpeed: 240, acceleration: { zeroToHundred: 5 }, seats: 5, drivetrain: 'AWD', groundClearance: 200 },
+      specs: { powerKw: 100, torque: 400, topSpeed: 240, acceleration: 5, seats: 5, drivetrain: 'AWD', groundClearance: 200 },
     } as unknown as Car
     expect(getValue(ev, 'power')).toBe(134)
   })
@@ -60,8 +60,8 @@ describe('getValue', () => {
     expect(getValue(ice, 'topSpeed')).toBe(240)
   })
 
-  it('returns acceleration zeroToHundred', () => {
-    const car = { ...ice, specs: { ...ice.specs, acceleration: { zeroToHundred: 5.5 } } } as unknown as Car
+  it('returns acceleration acceleration', () => {
+    const car = { ...ice, specs: { ...ice.specs, acceleration: 5.5 } } as unknown as Car
     expect(getValue(car, 'acceleration')).toBe(5.5)
   })
 

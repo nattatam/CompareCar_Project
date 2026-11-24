@@ -10,7 +10,6 @@ import {
   Tooltip,
 } from 'recharts'
 import { useTranslations } from 'next-intl'
-import { cars } from '@/data/cars'
 import type { Car } from '@/lib/types'
 import { getValue } from '@/components/car/SpecRadar'
 
@@ -19,14 +18,18 @@ const MUTED = '#a1a1aa'
 
 interface BarChartCardProps {
   car: Car
+  catalog?: Car[]
 }
 
-export function BarChartCard({ car }: BarChartCardProps) {
+export function BarChartCard({ car, catalog }: BarChartCardProps) {
   const t = useTranslations('CarCard')
-  const categoryCars = cars.filter((c) => c.category === car.category)
+  const allCars = catalog && catalog.length > 0 ? catalog : [car]
+  const categoryCars = allCars.filter((c) => c.category === car.category)
+  const peers = categoryCars.length > 0 ? categoryCars : allCars
 
   function avgForKey(key: Parameters<typeof getValue>[1]): number {
-    return Math.round((categoryCars.reduce((a, c) => a + getValue(c, key), 0) / categoryCars.length) * 10) / 10
+    const avg = peers.reduce((a, c) => a + getValue(c, key), 0) / peers.length
+    return Math.round((Number.isFinite(avg) ? avg : 0) * 10) / 10
   }
 
   const items = [

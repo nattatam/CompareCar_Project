@@ -8,7 +8,7 @@ describe("badgeLabel", () => {
   });
 
   it("returns EV for EV/BEV vehicles", () => {
-    const powertrain: Powertrain = { type: "EV", subtype: "BEV" };
+    const powertrain: Powertrain = { type: "EV", subType: "BEV" };
     expect(badgeLabel(powertrain)).toBe("EV");
   });
 
@@ -18,10 +18,10 @@ describe("badgeLabel", () => {
   });
 
   it("prioritizes subtype labels for HEV vehicles", () => {
-    expect(badgeLabel({ type: "HEV", subtype: "MHEV" })).toBe("MHEV");
-    expect(badgeLabel({ type: "HEV", subtype: "HEV" })).toBe("HEV");
-    expect(badgeLabel({ type: "HEV", subtype: "PHEV" })).toBe("PHEV");
-    expect(badgeLabel({ type: "HEV", subtype: "REEV/EREV" })).toBe("REEV/EREV");
+    expect(badgeLabel({ type: "HEV", subType: "MHEV" })).toBe("MHEV");
+    expect(badgeLabel({ type: "HEV", subType: "HEV" })).toBe("HEV");
+    expect(badgeLabel({ type: "HEV", subType: "PHEV" })).toBe("PHEV");
+    expect(badgeLabel({ type: "HEV", subType: "REEV/EREV" })).toBe("REEV/EREV");
   });
 
   it("falls back to HEV when an HEV vehicle has no subtype", () => {

@@ -1,131 +1,166 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "banner-design": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/banner-design/SKILL.md",
-      "computedHash": "f859a951ded1109a38bcc7f18faf4581f9adbf0550df7a11c013e77a5b229541"
+      "computedHash": "78c53d99e35bbb0140fa55e9909e78c28b9e02e46ea8ca7a2574b2906d2d9391"
     },
     "brand": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/brand/SKILL.md",
-      "computedHash": "0e773774d46ecea78eff2b36f574e41830417fcc618181215611f336930deac2"
+      "computedHash": "34c12df7d7cf0dca98a30efd4fd2078be45c3f90f9731ad3af0a5d2bfb2407b3"
     },
     "clean-code": {
       "source": "sickn33/agentic-awesome-skills",
       "sourceType": "github",
       "skillPath": "skills/clean-code/SKILL.md",
-      "computedHash": "551e1ac1c416d9df11fce8bc613c3595794f1f5e634d20c5b3e257afded11ed7"
+      "computedHash": "621dc6153a5653e4f2c3bab3ae7b69ee0858f1d2c0b7fa75f8cd63ecc366a234"
     },
     "code-review": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/code-review/SKILL.md",
-      "computedHash": "b4f17857c85ca60af1df7d0b623dd03c2a48419f6123e714f3d9748ca744a1bf"
+      "computedHash": "478e333e4026d3f96134b1a044d5b6645eb8fa649e8c798a134c0458972de8ed"
     },
     "codebase-design": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/codebase-design/SKILL.md",
-      "computedHash": "caea3cb8a8281ff829fd1a2b985044e77601b62f301adf43f689ccfc74c15f6f"
+      "computedHash": "ae9516079d0dcc67318c9fb15e48211b820277f4680978cbb00a55741b943f09"
     },
     "design": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/design/SKILL.md",
-      "computedHash": "6ca5e1266229715949215e56639b471529c55f926a555e0b970ddafd6bf506c8"
+      "computedHash": "9e5e8c11cd47de227cd9e0ebab6e8b24e48bf8b56f7e293b331a1c5a7b2cd5d7"
     },
     "design-system": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/design-system/SKILL.md",
-      "computedHash": "5a3dbae4a3c2ad9f96323d9bfae926b3c21bb1e3b066aa067906f577a2ff2545"
+      "computedHash": "c30f4f976ec8caed7dd0074c7012b5f5e36cfd2c0a576fb04e7c10802305b86a"
     },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "skillPath": "skills/frontend-design/SKILL.md",
-      "computedHash": "93f53fd1c0352d3d7ec17b8f73d7351bf76f4821e55d123c9d2abc2c53ba48e4"
+      "computedHash": "e1481fcd7484d1bc55f2ca7170b788d7357821f5595d27e7132ec7df6841b0cf"
     },
     "grill-me": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "computedHash": "5e0c683385eafd83f106ac6c9d67dfbbfe5aa4b3fe65aad114eb1055a99c818f"
+      "computedHash": "ab1acb9fbd9eaee03da254abb8a8de228d1e7a07475fe959da4a5eefa34ea4b9"
     },
     "grill-with-docs": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
-      "computedHash": "a610223c9796f755b603f15ec114849a4b38b9ba3006acfa9bdf3cc56dd44dad"
+      "computedHash": "02e258f41d210f9b2e7cce9faf62b3c59e8fcebe5d2736369c3cd07d471324f8"
     },
     "grilling": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/productivity/grilling/SKILL.md",
-      "computedHash": "4fa026e5979770347b3357ff5139e1e41d21c3a9f7335e9cd2811cb5b8d32f2f"
+      "computedHash": "7e2b96501235f1cbfb2a8dad79cb89d40272004822a0ec461923a5b3a6606f87"
     },
     "hallmark": {
       "source": "nutlope/hallmark",
       "sourceType": "github",
       "skillPath": "skills/hallmark/SKILL.md",
-      "computedHash": "6dbe721417b58a5c980f3385f3f56e71ecad0b22257e39ca310ed2508dc5aedf"
+      "computedHash": "c5ae622ff654348da6e650400a17f7b28a3ad0b3a1be3944c1213101e71d6346"
     },
     "improve-codebase-architecture": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
-      "computedHash": "016f12709bff30a27419e8add978a9be70f5ca1fb6738b3be6793038e0aba631"
+      "computedHash": "9f3492d2e406d9794c6b77299a87100408fc49a300357ccfb29f3f277e6678eb"
+    },
+    "neon-auth": {
+      "source": "neondatabase/agent-skills",
+      "commit": "d3601d9e1f9398b96a1ee25047bafba5f04199eb",
+      "sourceType": "github",
+      "skillPath": "skills/neon-auth/SKILL.md",
+      "computedHash": "81c1fdecc6bca04edc77d85379ceb21f9da5b6315217d19d83cab2fb2f068adf"
+    },
+    "neon-functions": {
+      "source": "neondatabase/agent-skills",
+      "commit": "d3601d9e1f9398b96a1ee25047bafba5f04199eb",
+      "sourceType": "github",
+      "skillPath": "skills/neon-functions/SKILL.md",
+      "computedHash": "6ec12cc01706f8062dfe90dc7d1d13e30089d00efe5b7cccbd8dcd80bcb20ff5"
+    },
+    "neon-object-storage": {
+      "source": "neondatabase/agent-skills",
+      "commit": "d3601d9e1f9398b96a1ee25047bafba5f04199eb",
+      "sourceType": "github",
+      "skillPath": "skills/neon-object-storage/SKILL.md",
+      "computedHash": "257069dffd0080b5265b9d3d2162d3e45d6581bd26d25449d8de05bb7a2ac687"
+    },
+    "neon-postgres": {
+      "source": "neondatabase/agent-skills",
+      "commit": "d3601d9e1f9398b96a1ee25047bafba5f04199eb",
+      "sourceType": "github",
+      "skillPath": "skills/neon-postgres/SKILL.md",
+      "computedHash": "0e1db49f25e9208cb24fa2084a542d52d60a85c09271b915acc3dad6901de6a0"
+    },
+    "neon-realtime": {
+      "source": "neondatabase/agent-skills",
+      "commit": "d3601d9e1f9398b96a1ee25047bafba5f04199eb",
+      "sourceType": "github",
+      "skillPath": "skills/neon-realtime/SKILL.md",
+      "computedHash": "7c055573fbfa784959800d81485819e51dd11f20e788a0258b84a6ab39d3cd0f"
     },
     "next-intl-add-language": {
       "source": "github/awesome-copilot",
       "sourceType": "github",
       "skillPath": "skills/next-intl-add-language/SKILL.md",
-      "computedHash": "6b30075c5f43a4498782729f129c513ca28db37d93032a81a07e444d4db575c5"
+      "computedHash": "5641119562904f7a778117cc159e0ecb938f2c2e0e91c950e88d4a0525c3d13e"
     },
     "research": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/research/SKILL.md",
-      "computedHash": "2c8b768d5f0309eaea9f92ef740101e813645b39aef88fb82733a52eae23dc0b"
+      "computedHash": "5bd6a6b833227dd87ee023c2d4734f4c349f290140514bb80bdc041ead1e837e"
     },
     "resolving-merge-conflicts": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/resolving-merge-conflicts/SKILL.md",
-      "computedHash": "436698459190d8e9f03dc32ada08401b56e352fb6a19bf71a2227fad8b80d98f"
+      "computedHash": "d92926f681907a75982f280875dfd1f06610a39680a00f361ae08a88bf2233cc"
     },
     "seo-audit": {
       "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
       "skillPath": "skills/seo-audit/SKILL.md",
-      "computedHash": "71435fbaf3622f1a6b16e20fda15f19aa8e285c9914fdeb92ac0a7612d6317bb"
+      "computedHash": "262933859ac4055595363483fdae9628a5de581d7b1dd98d8923d20d29868bcc"
     },
     "slides": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/slides/SKILL.md",
-      "computedHash": "a2b3559b58afc484548e1eb359e20495d11cf12b90da7c1fbba50efed9a70340"
+      "computedHash": "8ac362d2a8be33de40b24c9be971d486898ddd4156a73ee7a59e8b33e149512e"
     },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "skillPath": "skills/engineering/tdd/SKILL.md",
-      "computedHash": "c1ed8cd854c64d4d226097255d3fa662dae4a758a1462fadd63cc10e413d88d7"
+      "computedHash": "c0d414480cb33db7b8d833f12aec402714f7a8b21b4e6b1d6598b3e7204bc033"
     },
     "ui-styling": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/ui-styling/SKILL.md",
-      "computedHash": "fdb733278fc29ece0f1a8a97b46d6b404b03e24a140a3518ab52f24e4347dbda"
+      "computedHash": "6b4b44bed58fb69dc48425be0245f971503264d2940350251200b6b1b1f79e18"
     },
     "ui-ux-pro-max": {
       "source": "nextlevelbuilder/ui-ux-pro-max-skill",
       "sourceType": "github",
       "skillPath": ".claude/skills/ui-ux-pro-max/SKILL.md",
-      "computedHash": "e71368ecbf6badeeba615370af70065f3514902e8cb1384ca81b6f1cbea53760"
+      "computedHash": ""
     }
   }
 }

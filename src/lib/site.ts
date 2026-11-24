@@ -41,8 +41,8 @@ export function carDescription(car: Car): string {
         : null;
 
   const performance =
-    specs.acceleration.zeroToHundred != null
-      ? `0-100 in ${specs.acceleration.zeroToHundred} s`
+    typeof specs.acceleration === 'number'
+      ? `0-100 in ${specs.acceleration} s`
       : null;
 
   const details = [
@@ -92,11 +92,11 @@ export function carProductJsonLd(car: Car) {
     properties.push({ "@type": "PropertyValue", name: "Fuel Economy", value: `${specs.fuelEconomy} km/L` });
   }
 
-  if (specs.acceleration.zeroToHundred != null)
+  if (typeof specs.acceleration === 'number')
     properties.push({
       "@type": "PropertyValue",
       name: "0-100 km/h",
-      value: `${specs.acceleration.zeroToHundred} s`,
+      value: `${specs.acceleration} s`,
     });
   if (specs.topSpeed != null)
     properties.push({ "@type": "PropertyValue", name: "Top Speed", value: `${specs.topSpeed} km/h` });
