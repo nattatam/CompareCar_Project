@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -57,7 +57,7 @@ body {
 }
 
 /* Visible keyboard focus */
-:where(a, button, input, [role="button"], [tabindex]):focus-visible {
+:where(a, button, input, [role='button'], [tabindex]):focus-visible {
   outline: 2px solid var(--color-ring);
   outline-offset: 2px;
   border-radius: 6px;
@@ -150,6 +150,6 @@ body {
     @apply bg-background text-foreground;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scrollbar-gutter-stable;
   }
 }

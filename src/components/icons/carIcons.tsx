@@ -104,14 +104,24 @@ export function SportsIcon(props: CarIconProps) {
   )
 }
 
-const categoryIcons: Record<Category, (props: CarIconProps) => ReactElement> = {
+const categoryIcons: Record<string, (props: CarIconProps) => ReactElement> = {
   Sedan: SedanIcon,
   SUV: SuvIcon,
   Sports: SportsIcon,
   Hatchback: HatchbackIcon,
+  sedan: SedanIcon,
+  suv: SuvIcon,
+  sports: SportsIcon,
+  hatchback: HatchbackIcon,
 }
 
-export function CategoryIcon({ category, ...props }: CarIconProps & { category: Category }) {
-  const Cmp = categoryIcons[category]
+export function CategoryIcon({ category, ...props }: CarIconProps & { category?: string | null }) {
+  if (!category || category === 'All') return null
+  const Cmp =
+    categoryIcons[category] ??
+    categoryIcons[category.toLowerCase?.()] ??
+    categoryIcons[category.toUpperCase?.()] ??
+    SedanIcon
+  if (typeof Cmp !== 'function') return null
   return <Cmp {...props} />
 }

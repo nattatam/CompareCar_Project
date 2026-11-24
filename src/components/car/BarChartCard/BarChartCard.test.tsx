@@ -33,7 +33,7 @@ describe('BarChartCard', () => {
         powerKw: 150,
         torque: 400,
         topSpeed: 240,
-        acceleration: { zeroToHundred: 5 },
+        acceleration: { acceleration: 5 },
         seats: 5,
         drivetrain: 'AWD' as const,
         groundClearance: 140,

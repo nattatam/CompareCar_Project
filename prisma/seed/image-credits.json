@@ -1,0 +1,402 @@
+[
+  {
+    "image": "/images/cars/tesla-model-3.jpg",
+    "name": "Tesla Model 3",
+    "author": "iMoD Official",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Tesla_Model_3_Performance_front_view_04.png",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "note": "Source video: https://www.youtube.com/watch?v=Lr1FdX7Pi5o",
+    "videoUrl": "https://www.youtube.com/watch?v=Lr1FdX7Pi5o"
+  },
+  {
+    "image": "/images/cars/jaecoo-5-ev.png",
+    "name": "JAECOO 5 EV",
+    "author": "iMoD Official",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Jaecoo_5_EV_Max_(Thailand)_front_view.png",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "note": "Source video: https://www.youtube.com/watch?v=qBTYMFKgPeQ",
+    "videoUrl": "https://www.youtube.com/watch?v=qBTYMFKgPeQ"
+  },
+  {
+    "image": "/images/cars/geely-ex5-max+.jpg",
+    "name": "Geely EX5",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_Geely_EX5_Max%2B.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/geely-starray-em-r.jpg",
+    "name": "Geely STARRAY EM-R",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_Geely_Starray_EM-R_Max.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/ora-5-ev-ultra.jpg",
+    "name": "GWM ORA 5",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_ORA_5_EV_Ultra.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/jaecoo-6t.jpg",
+    "name": "JAECOO 6T",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_Jaecoo_J6T_REEV_Ultra_4WD.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/nevo-q05.jpg",
+    "name": "NEVO Q05",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_Nevo_Q05.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/omoda-c5-ev.jpg",
+    "name": "OMODA C5 EV",
+    "author": "Andra Febrian",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_Omoda_C5_EV_(Thailand)_front_view.jpg",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-s5-ev.jpg",
+    "name": "MG S5 EV Plus",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_MG_S5_EV_V.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/changan-lumin.jpg",
+    "name": "CHANGAN Lumin",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Changan_Lumin_L_DC.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/gac-aion-v.jpg",
+    "name": "GAC Aion V",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Aion_V_602_Luxury.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/hyptec-ht.jpg",
+    "name": "HYPTEC HT",
+    "author": "Tim Wu",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:GAC_Aion_Hyper_HT_Gull-wing_in_Grandview_Mall,_Guangzhou_20240309.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/jaecoo-6-ev.jpg",
+    "name": "JAECOO 6 EV",
+    "author": "S5A-0043",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:(SGP-Singapore)_Private_Jaecoo_6_EV_SYY733X_2025-08-24.jpg",
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-4-d.jpg",
+    "name": "MG MG 4",
+    "author": "Alexander-93",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:MG4_EV_IMG_9349.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-4-x.jpg",
+    "name": "MG MG 4",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_MG_4_Electric_X.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-urban-standard.jpg",
+    "name": "MG Urban",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_MG_Urban_Standard.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-urban-max.jpg",
+    "name": "MG Urban",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_MG_Urban_Max.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/mg-urban-ultra.jpg",
+    "name": "MG Urban",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_MG_Urban_Ultra_(2).jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-dolphin.jpg",
+    "name": "BYD Dolphin",
+    "author": "Alexander-93",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Dolphin_IAA_2023_1X7A0367.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-seal.jpg",
+    "name": "BYD Seal",
+    "author": "Alexander-93",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Seal_IAA_2023_1X7A0371.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-atto-3.jpg",
+    "name": "BYD ATTO 3",
+    "author": "Alexander-93",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Atto_3_1X7A6495.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-m6.jpg",
+    "name": "BYD M6",
+    "author": "User3204",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_BYD_M6_(front).jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-seal-5-dm-i.jpg",
+    "name": "BYD Seal 5 DM-i",
+    "author": "Ethan Llamas",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Seal_5_DM-i_Dynamic_Arctic_White_-_front.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-seal-6.jpg",
+    "name": "BYD Seal 6",
+    "author": "Chanokchon",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2026_BYD_Seal_6_EV_Premium.jpg",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "note": null,
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-sealion-7.jpg",
+    "name": "BYD Sealion 7",
+    "author": "iMoD Official",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_BYD_Sealion_7_Performance_AWD_(Thailand)_front_view.png",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "note": "Source video: https://www.youtube.com/watch?v=DXQhRIJKM38",
+    "videoUrl": "https://www.youtube.com/watch?v=DXQhRIJKM38"
+  },
+  {
+    "image": "/images/cars/byd-atto-1.jpg",
+    "name": "BYD ATTO 1",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Seagull_facelift_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/tesla-model-3-standard.jpg",
+    "name": "Tesla Model 3",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tesla_Model_3_Standard.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/tesla-model-3-premium.jpg",
+    "name": "Tesla Model 3",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:24_Tesla_Model_3_Base.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/gac-aion-ut.jpg",
+    "name": "GAC Aion UT",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Aion_UT_005.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/gac-aion-y-plus.jpg",
+    "name": "GAC Aion Y Plus",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_GAC_Aion_Y_Plus_Premium_in_TSM_Bandung_01.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/geely-ex2.jpg",
+    "name": "Geely EX2",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Geely_Xingyuan_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/geely-ex5.jpg",
+    "name": "Geely EX5",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Geely_Galaxy_E5_010.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/ora-5.jpg",
+    "name": "GWM ORA 5",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ora_5_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-atto-2.jpg",
+    "name": "BYD ATTO 2",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Yuan_Up_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-sealion-5-dm-i.jpg",
+    "name": "BYD Sealion 5 DM-i",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Song_Pro_DM-i_2024_facelift_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/byd-sealion-6-dm-i.jpg",
+    "name": "BYD Sealion 6 DM-i",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Sealion_6_DM-i.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/deepal-e07.jpg",
+    "name": "DEEPAL E07",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nevo_E07_007.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/deepal-k50.jpg",
+    "name": "DEEPAL Hunter K50",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nevo_Hunter_K50_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/deepal-s05.jpg",
+    "name": "DEEPAL S05",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Deepal_S05_001.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  },
+  {
+    "image": "/images/cars/deepal-s07.jpg",
+    "name": "DEEPAL S07",
+    "author": null,
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shenlan_S7_014.jpg",
+    "license": "CC0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "note": "No attribution required",
+    "videoUrl": null
+  }
+]

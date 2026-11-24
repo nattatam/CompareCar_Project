@@ -31,32 +31,26 @@ vi.mock('@/components/ui/tooltip', () => ({
 
 const car = {
   id: 'test-ev',
+  name: 'tesla-model-3-standard-rwd',
   brand: 'Tesla',
   model: 'Model 3',
   subModel: 'Standard RWD',
   year: 2025,
   price: 1149000,
   image: '/images/cars/tesla-model-3-standard.jpg',
-  category: 'Sedan' as const,
-  powertrain: { type: 'EV' as const, subtype: 'BEV' as const },
-  specs: {
+  officialUrl: 'https://www.tesla.com',
+  category: 'Sedan',
+  powerTrain: { type: 'EV', subType: 'BEV' },
+  spec: {
     powerKw: 208,
     torque: 420,
     topSpeed: 201,
-    acceleration: { zeroToHundred: 6.2 },
+    acceleration: 6.2,
     battery: { type: 'Li-ion', capacity: 57.5 },
     range: { wltp: 534 },
-    charging: { ac: 7.6, dc: 175, time: 30 },
-    drivetrain: 'RWD' as const,
+    drivetrain: 'RWD',
     motorType: 'PMSM',
-    driveModes: ['CHILL', 'SPORT'],
-    dimension: { length: 4720, width: 1933, height: 1441, wheelbase: 2875 },
-    groundClearance: 138,
-    turningRadius: 5.8,
-    weight: 1703,
     seats: 5,
-    trunkCapacity: 682,
-    trunkCapacityMax: 1582,
   },
 }
 
@@ -64,7 +58,7 @@ describe('CarCard', () => {
   it('renders brand, model, and price', () => {
     renderWithIntl(<CarCard car={car} selected={false} onToggle={() => {}} />)
     expect(screen.getByText('Tesla')).toBeInTheDocument()
-    expect(screen.getByText('Model 3')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Model 3 Standard RWD' })).toBeInTheDocument()
     expect(screen.getByText('฿1,149,000')).toBeInTheDocument()
   })
 
@@ -76,7 +70,7 @@ describe('CarCard', () => {
   it('links to the car detail page', () => {
     renderWithIntl(<CarCard car={car} selected={false} onToggle={() => {}} />)
     const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', '/car/test-ev')
+    expect(link).toHaveAttribute('href', '/car/tesla-model-3-standard-rwd')
   })
 
   it('shows the add to compare button when not selected', () => {
@@ -107,11 +101,11 @@ describe('CarCard', () => {
 
   it('renders the car image with descriptive alt text', () => {
     renderWithIntl(<CarCard car={car} selected={false} onToggle={() => {}} />)
-    expect(screen.getByTestId('car-image')).toHaveAttribute('alt', 'Tesla Model 3')
+    expect(screen.getByTestId('car-image')).toHaveAttribute('alt', 'Model 3 Standard RWD')
   })
 
   it('renders both WLTP and NEDC when both are available, NEDC first', () => {
-    const dualRangeCar = { ...car, specs: { ...car.specs, range: { wltp: 534, nedc: 480 } } }
+    const dualRangeCar = { ...car, spec: { ...car.spec!, range: { wltp: 534, nedc: 480 } } }
     renderWithIntl(<CarCard car={dualRangeCar} selected={false} onToggle={() => {}} />)
     const nedc = screen.getByText('480 km NEDC')
     const wltp = screen.getByText('534 km WLTP')
@@ -121,7 +115,7 @@ describe('CarCard', () => {
   })
 
   it('renders NEDC only when WLTP is missing', () => {
-    const nedcOnlyCar = { ...car, specs: { ...car.specs, range: { nedc: 410 } } }
+    const nedcOnlyCar = { ...car, spec: { ...car.spec!, range: { nedc: 410 } } }
     renderWithIntl(<CarCard car={nedcOnlyCar} selected={false} onToggle={() => {}} />)
     expect(screen.getByText('410 km NEDC')).toBeInTheDocument()
     expect(screen.queryByText(/WLTP/)).not.toBeInTheDocument()

@@ -9,12 +9,12 @@ describe('PowertrainBadge', () => {
   })
 
   it('renders EV for EV/BEV powertrain', () => {
-    render(<PowertrainBadge powertrain={{ type: 'EV', subtype: 'BEV' }} />)
+    render(<PowertrainBadge powertrain={{ type: 'EV', subType: 'BEV' }} />)
     expect(screen.getByText('EV')).toBeInTheDocument()
   })
 
   it('renders the subtype for HEV powertrains', () => {
-    render(<PowertrainBadge powertrain={{ type: 'HEV', subtype: 'PHEV' }} />)
+    render(<PowertrainBadge powertrain={{ type: 'HEV', subType: 'PHEV' }} />)
     expect(screen.getByText('PHEV')).toBeInTheDocument()
   })
 
