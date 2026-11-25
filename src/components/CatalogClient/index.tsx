@@ -7,6 +7,7 @@ import { scrollToTop } from '@/lib/utils'
 import { Card } from '@/components/ui/card'
 import { Pagination } from '@/components/Pagination'
 import CarCard from '@/components/CarCard'
+import CarCardSkeleton from '@/components/CarCard/CarCardSkeleton'
 import CompareBar from '@/components/CompareBar'
 import FilterBar from '@/components/FilterBar'
 import { DEFAULT_PRICE_RANGE } from '@/constants/constants'
@@ -29,6 +30,7 @@ type Props = {
 export default function CatalogClient({ searchParams }: Props) {
   const router = useRouter()
   const t = useTranslations('Catalog')
+  const tCommon = useTranslations('Common')
   const initialQuery = Array.isArray(searchParams?.q) ? searchParams?.q[0] : (searchParams?.q ?? '')
   const initialPage = Math.max(1, Number(Array.isArray(searchParams?.page) ? searchParams?.page[0] : searchParams?.page) || 1)
   const [query, setQuery] = useState(initialQuery)
@@ -160,8 +162,16 @@ export default function CatalogClient({ searchParams }: Props) {
         </aside>
 
         <div className="min-w-0 flex-1">
-
-          {carList.length === 0 && !isLoading ? (
+          {isLoading ? (
+            <div role="status" aria-live="polite" aria-busy="true">
+              <span className="sr-only">{tCommon('loading')}</span>
+              <div className="scroll-mt-16 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                {Array.from({ length: 12 }, (_, index) => (
+                  <CarCardSkeleton key={index} />
+                ))}
+              </div>
+            </div>
+          ) : carList.length === 0 ? (
             <Card className="py-16 text-center">
               <p className="text-muted-foreground">{t('empty')}</p>
             </Card>

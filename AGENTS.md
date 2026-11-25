@@ -26,9 +26,36 @@ The product is an independent car information and comparison platform, not a dea
 - Tailwind CSS v4
 - Recharts for data visualization
 - Lucide React for icons
-- Static car data maintained in `src/data/cars.ts`
+- Car catalog data stored in Neon Postgres and accessed through Prisma; `src/data/cars.ts` remains for static constants and SEO data
 
 Use Server Components by default. Use Client Components only when interactivity or browser APIs require them.
+
+---
+
+# Database (Neon Postgres)
+
+Neon Postgres is the primary data store for cars, brands, models, features, and image credits. Use Prisma as the data-access layer.
+
+- Runtime queries use the generated Prisma client in `src/generated/prisma` and the `PrismaPg` adapter singleton in `src/lib/prisma.ts`. Do not instantiate a new client per request.
+- `DATABASE_URL` is the pooled connection used by the app. `DATABASE_URL_UNPOOLED` is used by Prisma CLI/migrations via `prisma.config.ts`. Keep these names; never commit their values.
+- The Prisma schema and migrations live in `prisma/`. `prisma generate` runs as part of `npm run build`.
+- Keep database queries in `src/lib/services/` and expose them to routes and pages through those services.
+- `src/data/cars.ts` is static reference data used by constants and SEO; it is not the catalog source of truth.
+- Do not add auth tables to the app Prisma schema. Neon Auth owns the `neon_auth` schema on the same branch.
+- Do not switch database providers, adapters, or introduce a second datastore without an explicit project decision. `@prisma/adapter-neon` is installed but not used by app code.
+
+---
+
+# Authentication (Neon Auth / Managed Better Auth)
+
+Authentication is **Neon Auth (Managed Better Auth)** via `@neon/auth`. Do not add a separate auth provider or a self-managed Better Auth server.
+
+- Server: `createNeonAuth` in `src/lib/auth/server.ts`, configured with `NEON_AUTH_BASE_URL` and `NEON_AUTH_COOKIE_SECRET`. Client: `createAuthClient` in `src/lib/auth/client.ts`.
+- Keep the catch-all handler at `src/app/api/auth/[...path]/route.ts`; Neon Auth requires it for sessions and callbacks. Do not reimplement auth endpoints.
+- Use `auth.signIn.email`, `auth.signUp.email`, `auth.signOut`, and `auth.getSession` from the Neon wrapper. Do not switch to bare `better-auth/client` or pass a `plugins` option to the Managed client.
+- Sign-in and sign-up use server actions in `src/app/auth/`; new accounts are restricted by the `ALLOWED_EMAILS` allowlist (`src/lib/auth/signup-allowlist.ts`).
+- Protect `/admin/:path*` with `auth.middleware` in `src/proxy.ts`. Protect mutating API routes with `withAuth` in `src/lib/auth/api-guard.ts` (session and same-origin checks). Session presence is the only authorization level implemented; do not assume role-based access.
+- Never log or commit auth env values. Auth state lives on the Neon branch and must not be duplicated into the app database.
 
 ---
 
